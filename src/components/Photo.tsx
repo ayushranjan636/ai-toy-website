@@ -23,8 +23,8 @@ export function Photo({ src, alt, width, height, sizes, caption, tag, priority, 
           alt={alt}
           fill
           sizes={sizes}
-          priority={priority}
-          loading={priority ? undefined : "lazy"}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
           className="photo-img"
         />
         {tag ? <span className="glass-tag">{tag}</span> : null}

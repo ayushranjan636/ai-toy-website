@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Photo } from "@/components/Photo";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { ogImage, productHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { productHref } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Features",
+export const metadata = pageMetadata({
+  title: "Zivoo features: voice-based spelling, maths and story activities",
+  absoluteTitle: true,
   description:
-    "The learning activities planned for Zivoo — word practice, spelling, basic maths, storytelling and story reflection — and the companion parent app. Zivoo is in development and requires Wi-Fi.",
-  alternates: { canonical: "/features" },
-  openGraph: { title: "Zivoo features", url: "/features", images: [ogImage] },
-};
+    "How Zivoo's voice-based activities are designed to work: word practice, spoken spelling, basic maths, storytelling, story reflection and the parent app. Needs Wi-Fi.",
+  path: "/features",
+});
 
 export default function FeaturesPage() {
   return (

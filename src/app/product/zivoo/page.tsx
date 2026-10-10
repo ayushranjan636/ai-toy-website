@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { coreFaqs, Faq } from "@/components/Faq";
 import { FilmPlayer } from "@/components/FilmPlayer";
+import { JsonLd } from "@/components/JsonLd";
 import { ProductGallery, type GalleryItem } from "@/components/ProductGallery";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { ogImage, site } from "@/lib/site";
+import { absoluteUrl, breadcrumbLd, ldGraph, ORG_ID, pageMetadata, PRODUCT_ID } from "@/lib/seo";
+import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Zivoo — the product",
+export const metadata = pageMetadata({
+  title: "Zivoo talking learning toy: design, activities and status",
+  absoluteTitle: true,
   description:
-    "Zivoo is a screen-free, Wi-Fi-connected learning toy in development. See the concept design, planned activities and the companion app concept, and join the pre-order waitlist.",
-  alternates: { canonical: "/product/zivoo" },
-  openGraph: { title: "Zivoo", url: "/product/zivoo", images: [ogImage] },
-};
+    "See Zivoo, a screen-free talking learning toy in development: its design from every angle, planned word, spelling, maths and story activities, and parent app.",
+  path: "/product/zivoo",
+});
 
 const gallery: GalleryItem[] = [
   {
@@ -73,14 +74,37 @@ const gallery: GalleryItem[] = [
   },
 ];
 
-const productJsonLd = {
-  "@context": "https://schema.org",
+/**
+ * Product structured data. No price, offer or rating is published because
+ * none exists yet. We'll add `offers` (PreOrder) once pre-orders open.
+ */
+const productLd = {
   "@type": "Product",
+  "@id": PRODUCT_ID,
   name: "Zivoo",
   description: site.description,
+  category: "Toys & Games > Educational Toys",
   brand: { "@type": "Brand", name: "Zivoo" },
-  image: [`${site.url}/images/zivoo-front.webp`, `${site.url}/images/zivoo-back.webp`],
-  url: `${site.url}/product/zivoo`,
+  manufacturer: { "@id": ORG_ID },
+  image: gallery.filter((g) => g.kind === "image").map((g) => absoluteUrl(g.src)),
+  url: absoluteUrl("/product/zivoo"),
+  audience: { "@type": "PeopleAudience", audienceType: "Children and their parents" },
+  additionalProperty: [
+    { "@type": "PropertyValue", name: "Screen", value: "None (screen-free, voice-based)" },
+    { "@type": "PropertyValue", name: "Connectivity", value: "Requires home Wi-Fi" },
+    { "@type": "PropertyValue", name: "Planned activities", value: "Word practice, spelling, basic maths, storytelling, story reflection" },
+    { "@type": "PropertyValue", name: "Parent app", value: "Planned companion app for setup, activity choice and progress" },
+    { "@type": "PropertyValue", name: "Status", value: "In development" },
+  ],
+  subjectOf: {
+    "@type": "VideoObject",
+    name: "Meet Zivoo in 25 seconds",
+    description: "A short concept film introducing Zivoo, a screen-free learning toy children talk to.",
+    thumbnailUrl: absoluteUrl("/video/zivoo-film-poster.webp"),
+    contentUrl: absoluteUrl("/video/zivoo-film-1080.mp4"),
+    uploadDate: "2026-09-28",
+    duration: "PT25S",
+  },
 };
 
 export default function ProductPage() {
@@ -150,7 +174,15 @@ export default function ProductPage() {
 
       <WaitlistSection source="product" />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <JsonLd
+        data={ldGraph(
+          productLd,
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Zivoo", path: "/product/zivoo" },
+          ]),
+        )}
+      />
     </>
   );
 }

@@ -7,3 +7,9 @@ data/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+.vercel
+.env*
+
+# local audit artefacts
+.shots/
+!.env.example

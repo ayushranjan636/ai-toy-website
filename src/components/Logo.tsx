@@ -19,8 +19,9 @@ export function Logo({ width = 120, priority, className, variant = "dark" }: Pro
   const logo = logos[variant];
   const height = Math.round((width * logo.h) / logo.w);
   return (
-    <Link href="/" className={`logo-link ${className ?? ""}`} aria-label="Zivoo — home">
-      <Image src={logo.src} alt="" width={width} height={height} priority={priority} sizes={`${width}px`} quality={90} style={{ height: "auto" }} />
+    <Link href="/" className={`logo-link ${className ?? ""}`}>
+      {/* Linked image: its alt text is the link's accessible name. 1x/2x srcset only. */}
+      <Image src={logo.src} alt="Zivoo" width={width} height={height} loading={priority ? "eager" : "lazy"} quality={90} style={{ height: "auto" }} />
     </Link>
   );
 }

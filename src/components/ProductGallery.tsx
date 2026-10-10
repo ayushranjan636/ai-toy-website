@@ -36,7 +36,8 @@ export function ProductGallery({ items }: { items: GalleryItem[] }) {
               alt={current.alt}
               fill
               sizes="(min-width: 1000px) 640px, 100vw"
-              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
               className="gallery-image"
             />
           ) : (

@@ -17,8 +17,8 @@
   --error: #9e3620; /* 6.3:1 on cream */
   --white: #fffdf9;
 
-  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
-  --font-body: "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius-s: 8px;
   --radius-m: 14px;
@@ -63,7 +63,6 @@ h1, h2, h3 {
   font-family: var(--font-display);
   color: var(--teal);
   font-weight: 560;
-  font-variation-settings: "SOFT" 60, "WONK" 0;
   line-height: 1.12;
   letter-spacing: -0.012em;
   margin: 0 0 0.6em;
@@ -337,7 +336,10 @@ main:focus { outline: none; }
 }
 
 @media (min-width: 700px) {
-  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1000px) {
+  .footer-grid { grid-template-columns: 1.3fr 1fr 1.2fr 1fr; }
 }
 
 /* ---------- Glass surfaces ---------- */

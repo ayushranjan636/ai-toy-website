@@ -1,10 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { coreFaqs, Faq } from "@/components/Faq";
+import { coreFaqs, Faq, type FaqItem } from "@/components/Faq";
 import { FilmPlayer } from "@/components/FilmPlayer";
+import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
+import { PostCard } from "@/components/PostCard";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { productHref } from "@/lib/site";
+import { posts } from "@/content/blog";
+import { faqLd, ldGraph, pageMetadata } from "@/lib/seo";
+import { productHref, site } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Zivoo | Screen-free learning toy for children",
+  absoluteTitle: true,
+  description: site.description,
+  path: "/",
+});
+
+/** Plain-language questions people actually search for, answered first. */
+const homeFaqs: FaqItem[] = [
+  {
+    q: "What is a screen-free learning toy?",
+    a: "A screen-free learning toy helps children practise skills like language, counting or storytelling without a display to watch or tap. Zivoo does this through spoken conversation: your child talks, Zivoo answers, and then asks something back.",
+  },
+  {
+    q: "How is Zivoo different from a learning app on a tablet?",
+    a: "There's no screen. Children use their voice and their imagination instead of watching or tapping, and parents choose activities and see progress in a separate companion app.",
+  },
+  ...coreFaqs,
+];
 
 const activities = [
   { name: "Word practice", example: "“Enormous means very, very big. What’s something enormous?”" },
@@ -24,10 +48,11 @@ export default function HomePage() {
             <p className="glass-chip">
               <span className="status-dot" aria-hidden="true" /> In development
             </p>
-            <h1 id="hero-title">
+            <h1 id="hero-title" className="hero-h1">Zivoo: a screen-free learning toy</h1>
+            <p className="hero-tagline">
               Big questions.
               <br /> Little conversations.
-            </h1>
+            </p>
           </div>
 
           <div className="hero-media">
@@ -37,7 +62,8 @@ export default function HomePage() {
                 alt="Zivoo, a rounded soft-teal learning toy with a cream face panel, two dark eyes, a small smile, a speaker grille on one side and a coral button on top."
                 width={1165}
                 height={1028}
-                priority
+                loading="eager"
+                fetchPriority="high"
                 sizes="(min-width: 1200px) 540px, (min-width: 900px) 44vw, 82vw"
                 className="hero-image"
               />
@@ -214,12 +240,38 @@ export default function HomePage() {
             <p className="eyebrow">Questions</p>
             <h2 id="faq-title">Things parents ask</h2>
           </div>
-          <Faq items={coreFaqs} />
+          <Faq items={homeFaqs} />
         </div>
       </section>
 
-      {/* 8. Waitlist */}
+      {/* 8. Guides */}
+      <section className="section" aria-labelledby="guides-title">
+        <div className="container">
+          <div className="section-head section-head-row">
+            <div>
+              <p className="eyebrow">Guides for parents</p>
+              <h2 id="guides-title">Screen-free learning, explained.</h2>
+            </div>
+            <Link href="/blog" className="link-arrow">
+              All guides
+            </Link>
+          </div>
+          <div className="post-grid">
+            {posts.slice(0, 3).map((post) => (
+              <PostCard key={post.slug} post={post} headingLevel="h3" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Waitlist */}
       <WaitlistSection source="home" />
+
+      <JsonLd
+        data={ldGraph(
+          faqLd(homeFaqs.filter((f): f is { q: string; a: string } => typeof f.a === "string")),
+        )}
+      />
     </>
   );
 }

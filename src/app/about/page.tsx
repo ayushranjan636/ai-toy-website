@@ -1,17 +1,18 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AssetPlaceholder } from "@/components/AssetPlaceholder";
+import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { ogImage, productHref } from "@/lib/site";
+import { absoluteUrl, ldGraph, ORG_ID, pageMetadata } from "@/lib/seo";
+import { productHref } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About us",
+export const metadata = pageMetadata({
+  title: "About Zivoo: learning through conversation, not screens",
+  absoluteTitle: true,
   description:
-    "We're developing Zivoo, a screen-free learning toy that helps children practise and explore through conversation.",
-  alternates: { canonical: "/about" },
-  openGraph: { title: "About Zivoo", url: "/about", images: [ogImage] },
-};
+    "Why we're building Zivoo: a screen-free learning toy that gives children a patient partner for practising words, numbers and stories through spoken conversation.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -84,6 +85,17 @@ export default function AboutPage() {
       </section>
 
       <WaitlistSection source="about" />
+      <JsonLd
+        data={ldGraph(
+          {
+            "@type": "AboutPage",
+            url: absoluteUrl("/about"),
+            name: "About Zivoo",
+            about: { "@id": ORG_ID },
+            inLanguage: "en-GB",
+          },
+        )}
+      />
     </>
   );
 }

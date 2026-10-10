@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { posts } from "@/content/blog";
 import { primaryNav, productHref, site } from "@/lib/site";
 import { Logo } from "./Logo";
 
@@ -23,6 +24,20 @@ export function Footer() {
             <li>
               <Link href={productHref}>The Zivoo product page</Link>
             </li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Guides" className="footer-col">
+          <h2 className="footer-heading">Guides for parents</h2>
+          <ul>
+            <li>
+              <Link href="/blog">All guides</Link>
+            </li>
+            {posts.slice(0, 3).map((p) => (
+              <li key={p.slug}>
+                <Link href={`/blog/${p.slug}`}>{p.seoTitle.split(":")[0]}</Link>
+              </li>
+            ))}
           </ul>
         </nav>
 

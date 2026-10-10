@@ -7,12 +7,13 @@ import { MARKETING_CONSENT_TEXT } from "./waitlist-validation";
 /**
  * Server-only waitlist storage.
  *
- * - "supabase": production. Inserts via the Supabase REST API using the
- *   service-role key, which never leaves the server.
+ * - "google-sheets": production. Posts to a Google Apps Script web app that
+ *   appends a row to the waitlist sheet. The shared secret never leaves the
+ *   server. See google-sheets/Code.gs and README.md.
  * - "file": local testing only. Appends to data/waitlist.json.
  *
- * If no store is configured we report that honestly; the UI never shows a
- * success message unless a row was actually written.
+ * If no store is configured we say so honestly; the UI never shows success
+ * unless a row was actually written.
  */
 
 export type SaveResult =
@@ -41,39 +42,57 @@ function toRow(input: WaitlistInput, source: string): Row {
   };
 }
 
-export function waitlistStoreKind(): "supabase" | "file" | null {
+/** Neutralise spreadsheet formula injection (=, +, -, @ at the start of a cell). */
+function sheetSafe(value: string | null): string {
+  if (!value) return "";
+  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
+}
+
+export function waitlistStoreKind(): "google-sheets" | "file" | null {
   const kind = process.env.WAITLIST_STORE?.trim().toLowerCase();
-  if (kind === "supabase" && process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    return "supabase";
+  if (kind === "google-sheets" && process.env.GOOGLE_SHEETS_WEBHOOK_URL && process.env.GOOGLE_SHEETS_SECRET) {
+    return "google-sheets";
   }
   if (kind === "file") return "file";
   return null;
 }
 
-async function saveToSupabase(row: Row): Promise<SaveResult> {
-  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  const table = process.env.SUPABASE_WAITLIST_TABLE?.trim() || "waitlist_signups";
-
-  const res = await fetch(`${base}/rest/v1/${encodeURIComponent(table)}`, {
+async function saveToGoogleSheets(row: Row): Promise<SaveResult> {
+  const res = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL!, {
     method: "POST",
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      Prefer: "return=minimal",
-    },
-    body: JSON.stringify(row),
+    // text/plain avoids a CORS preflight on Apps Script and is parsed as JSON there.
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      secret: process.env.GOOGLE_SHEETS_SECRET,
+      email: row.email,
+      firstName: sheetSafe(row.first_name),
+      marketingConsent: row.marketing_consent,
+      consentText: row.consent_text,
+      source: sheetSafe(row.source),
+    }),
+    redirect: "follow", // Apps Script answers via a one-time redirect
     cache: "no-store",
-    signal: AbortSignal.timeout(8000),
+    signal: AbortSignal.timeout(12000),
   });
 
-  if (res.ok) return { status: "created" };
+  const text = await res.text();
+  let data: { status?: string; message?: string } = {};
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return { status: "error", detail: `Google Sheets returned non-JSON (${res.status}): ${text.slice(0, 160)}` };
+  }
 
-  const text = await res.text().catch(() => "");
-  // 23505 = unique_violation (email already on the list)
-  if (res.status === 409 || text.includes("23505")) return { status: "duplicate" };
-  return { status: "error", detail: `Supabase ${res.status}: ${text.slice(0, 200)}` };
+  switch (data.status) {
+    case "created":
+      return { status: "created" };
+    case "duplicate":
+      return { status: "duplicate" };
+    case "unauthorized":
+      return { status: "error", detail: "Google Sheets rejected the secret (check GOOGLE_SHEETS_SECRET)" };
+    default:
+      return { status: "error", detail: `Google Sheets: ${data.status ?? res.status} ${data.message ?? ""}`.trim() };
+  }
 }
 
 // Serialise file writes so concurrent requests cannot clobber each other.
@@ -107,7 +126,7 @@ export async function saveSignup(input: WaitlistInput, source: string): Promise<
   if (!kind) return { status: "unconfigured" };
   const row = toRow(input, source);
   try {
-    return kind === "supabase" ? await saveToSupabase(row) : await saveToFile(row);
+    return kind === "google-sheets" ? await saveToGoogleSheets(row) : await saveToFile(row);
   } catch (err) {
     return { status: "error", detail: err instanceof Error ? err.message : String(err) };
   }

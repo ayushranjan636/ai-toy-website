@@ -2,17 +2,17 @@
   "name": "zivoo-website",
   "version": "0.1.0",
   "private": true,
-  "description": "Marketing and pre-order waitlist website for Zivoo by Wonderloom Technologies.",
+  "description": "Marketing and pre-order waitlist website for Zivoo by Cogniveda LLP.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "check:supabase": "node scripts/check-supabase.mjs"
+    "check:sheets": "node scripts/check-sheets.mjs",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "test": "node --test scripts/test-output.mjs"
   },
   "dependencies": {
-    "@fontsource-variable/figtree": "^5.2.10",
-    "@fontsource-variable/fraunces": "^5.2.9",
     "next": "^16.3.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

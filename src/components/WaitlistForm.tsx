@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { trackEvent } from "@/lib/analytics";
 import {
   EMAIL_MAX,
   MARKETING_CONSENT_TEXT,
@@ -70,6 +71,8 @@ export function WaitlistForm({ source }: { source: string }) {
         | null;
 
       if (res.ok && data?.ok) {
+        // Count genuinely new sign-ups only; send the page source, never form contents.
+        if (data.code === "created") trackEvent("waitlist_signup", { source });
         setStatus({ kind: "success", duplicate: data.code === "duplicate", name: firstName.trim() || undefined });
         return;
       }
