@@ -11,9 +11,10 @@ import { faqLd, ldGraph, pageMetadata } from "@/lib/seo";
 import { inr, product, productHref, site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Zivoo | Screen-free learning toy for children",
+  title: "Zivoo: Screen-Free Talking Learning Toy for Kids Aged 3-9",
   absoluteTitle: true,
-  description: site.description,
+  description:
+    "Zivoo is a screen-free learning toy for kids aged 3-9 who learn by conversation. Follow progress in the Zivoo Parents app. Pre-orders open 1 Dec in India.",
   path: "/",
 });
 
@@ -191,7 +192,7 @@ export default function HomePage() {
         <div className="container split">
           <div className="split-copy">
             <p className="eyebrow">For parents</p>
-            <h2 id="parents-title">Designed with parents in mind</h2>
+            <h2 id="parents-title">The Zivoo Parents app keeps you in the picture</h2>
             <p>
               The {product.app} is planned to let you choose which activities Zivoo offers and follow your child&rsquo;s
               growth and performance over time.
@@ -240,7 +241,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. FAQ */}
+      {/* 7. At a glance */}
+      <section className="section" aria-labelledby="glance-title">
+        <div className="container">
+          <div className="section-head">
+            <p className="eyebrow">Zivoo at a glance</p>
+            <h2 id="glance-title">A screen-free learning toy for kids aged {product.ages.label}</h2>
+            <p>
+              Everything we can confirm today, in one place. Zivoo is still being built and tested, so some details may
+              change before pre-orders open.
+            </p>
+          </div>
+          <dl className="glance">
+            <div>
+              <dt>Who it&rsquo;s for</dt>
+              <dd>
+                Children aged {product.ages.label}, from early talkers learning new words to school-age children
+                practising spelling and sums.
+              </dd>
+            </div>
+            <div>
+              <dt>How children use it</dt>
+              <dd>
+                They switch Zivoo on and say &ldquo;{product.wakeWord}&rdquo;. After that it&rsquo;s a conversation:
+                no screen, no buttons to press for each question and nothing to tap or swipe.
+              </dd>
+            </div>
+            <div>
+              <dt>What they practise</dt>
+              <dd>
+                Word meanings and pronunciation, spelling one letter at a time, counting and simple adding and taking
+                away, listening to stories and talking about them afterwards.
+              </dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>
+                English first. We&rsquo;re working towards more Indian languages and will name each one when
+                it&rsquo;s ready.
+              </dd>
+            </div>
+            <div>
+              <dt>The Zivoo Parents app</dt>
+              <dd>
+                Set Zivoo up, choose which activities it offers and follow your child&rsquo;s growth and performance
+                over time.
+              </dd>
+            </div>
+            <div>
+              <dt>Voice recordings</dt>
+              <dd>
+                Kept only temporarily, on the device itself. The Parents app shows insights about what was practised,
+                not recordings.
+              </dd>
+            </div>
+            <div>
+              <dt>Battery and connection</dt>
+              <dd>
+                Designed to run up to 50 hours on a full charge. Zivoo needs home Wi-Fi to hold conversations and
+                doesn&rsquo;t work offline.
+              </dd>
+            </div>
+            <div>
+              <dt>Price and pre-orders</dt>
+              <dd>
+                Pre-orders open {product.preorder.opensLabel} in India. The introductory price is{" "}
+                {inr(product.preorder.price)}, half the regular {inr(product.preorder.listPrice)}, until{" "}
+                {product.preorder.validUntilLabel}.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      {/* 8. FAQ */}
       <section className="section section-tint" aria-labelledby="faq-title">
         <div className="container faq-grid">
           <div>

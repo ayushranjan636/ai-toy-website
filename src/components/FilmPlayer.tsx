@@ -50,7 +50,7 @@ export function FilmPlayer({ title = "Zivoo concept film" }: { title?: string })
           />
         ) : (
           <button type="button" className="film-start" onClick={start}>
-            <Image src={POSTER} alt="" fill sizes="(min-width: 1248px) 1200px, 100vw" className="film-poster" loading="lazy" />
+            <Image src={POSTER} alt="Still from the Zivoo concept film: the screen-free learning toy with its cream face panel and coral button." fill sizes="(min-width: 1248px) 1200px, 100vw" className="film-poster" loading="lazy" />
             <span className="film-play glass">
               <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true">
                 <path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor" />

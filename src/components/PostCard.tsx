@@ -12,7 +12,7 @@ export function PostCard({ post, headingLevel = "h2", eager = false }: { post: P
     <article className="post-card">
       <Link href={`/blog/${post.slug}`} className="post-card-link">
         <div className="post-card-media">
-          <Image src={post.image.src} alt="" fill loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} sizes="(min-width: 1000px) 380px, (min-width: 640px) 45vw, 100vw" />
+          <Image src={post.image.src} alt={post.image.alt} fill loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} sizes="(min-width: 1000px) 380px, (min-width: 640px) 45vw, 100vw" />
         </div>
         <div className="post-card-body">
           <p className="post-meta">

@@ -211,3 +211,10 @@
 .film-duration { font-weight: 500; color: var(--muted); font-size: 0.9375rem; }
 .film-frame .glass-tag { pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .film-start:hover .film-poster { transform: none; } }
+
+/* Home: Zivoo at a glance */
+.glance { margin: 0; display: grid; gap: 0 48px; }
+.glance > div { padding: 18px 0; border-top: 1px solid var(--line); }
+.glance dt { margin-bottom: 4px; font-weight: 700; }
+.glance dd { margin: 0; color: var(--muted); max-width: 52ch; }
+@media (min-width: 800px) { .glance { grid-template-columns: 1fr 1fr; } }
