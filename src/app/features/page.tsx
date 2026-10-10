@@ -118,14 +118,17 @@ export default function FeaturesPage() {
       <section className="section section-tint" aria-labelledby="app-title">
         <div className="container split">
           <div className="split-copy">
-            <p className="eyebrow">Companion app and connection</p>
+            <p className="eyebrow">Parents app and connection</p>
             <h2 id="app-title">You choose. Zivoo connects.</h2>
             <p>
-              The companion app is planned for setup, choosing activities and seeing what was practised. The screens
-              shown are concepts, not the finished app.
+              The Zivoo Parents app is planned for setup, choosing activities and following your child&rsquo;s growth
+              and performance. Voice recordings stay on the device temporarily; the app shows insights, not recordings.
+              The screens shown are concepts, not the finished app.
             </p>
             <p>
-              Zivoo needs home Wi-Fi to hold conversations and isn&rsquo;t designed to work offline. Replies can take a
+              Once switched on, Zivoo listens for &ldquo;Hey Zivoo&rdquo;. It speaks English first, with more Indian
+              languages planned, and is designed to run up to 50 hours on a full charge. It needs home Wi-Fi to hold
+              conversations and isn&rsquo;t designed to work offline. Replies can take a
               moment, especially on a slower connection.
             </p>
           </div>

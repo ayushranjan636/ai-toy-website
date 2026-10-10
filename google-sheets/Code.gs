@@ -13,6 +13,10 @@
  *    run as a formula (CSV/formula injection).
  */
 
+// Zivoo waitlist spreadsheet:
+// https://docs.google.com/spreadsheets/d/116oL1-BxNC2oL0AWUpu8COK8zYVe81Uh9PAZKF2DshI/edit
+// Opened by ID so the script works whether it's bound to the sheet or standalone.
+const SPREADSHEET_ID = "116oL1-BxNC2oL0AWUpu8COK8zYVe81Uh9PAZKF2DshI";
 const SHEET_NAME = "Waitlist";
 const HEADERS = ["Created at (UTC)", "Email", "First name", "Marketing consent", "Consent text", "Source"];
 
@@ -65,7 +69,7 @@ function doPost(e) {
 }
 
 function getSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {

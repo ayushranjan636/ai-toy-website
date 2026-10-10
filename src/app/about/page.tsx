@@ -3,14 +3,14 @@ import { AssetPlaceholder } from "@/components/AssetPlaceholder";
 import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { absoluteUrl, ldGraph, ORG_ID, pageMetadata } from "@/lib/seo";
-import { productHref } from "@/lib/site";
+import { absoluteUrl, FOUNDER_ID, ldGraph, ORG_ID, pageMetadata } from "@/lib/seo";
+import { product, productHref, site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "About Zivoo: learning through conversation, not screens",
   absoluteTitle: true,
   description:
-    "Why we're building Zivoo: a screen-free learning toy that gives children a patient partner for practising words, numbers and stories through spoken conversation.",
+    "Meet the team behind Zivoo. Founded by S. V. Bharathi, a teacher with 15+ years of classroom experience, Zivoo helps children aged 3 to 9 learn by talking.",
   path: "/about",
 });
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </li>
             <li>
               <h3>Parents in the picture</h3>
-              <p>The app is planned so you choose what Zivoo offers.</p>
+              <p>The {product.app} is planned so you choose what Zivoo offers and see how your child grows.</p>
             </li>
             <li>
               <h3>Honest about limits</h3>
@@ -71,16 +71,31 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="team-title">
+      <section id="founder" className="section" aria-labelledby="team-title">
         <div className="container split">
           <div className="split-copy">
-            <h2 id="team-title">The people behind Zivoo</h2>
-            <p>We&rsquo;ll introduce our team here soon.</p>
+            <p className="eyebrow">Founder</p>
+            <h2 id="team-title">Built by a teacher.</h2>
+            <p>
+              Zivoo was founded by <strong>S. V. Bharathi</strong>, who has spent more than 15 years teaching. Years in
+              the classroom show how much children learn when someone patiently listens, asks a follow-up question and
+              lets them answer in their own words.
+            </p>
+            <p>
+              Zivoo is built around that idea. It&rsquo;s designed for children aged {product.ages.label} and focuses on
+              the everyday things teachers practise with children: new words, spelling, early maths and talking about
+              stories.
+            </p>
+            {site.contactEmail ? (
+              <p>
+                Get in touch: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+              </p>
+            ) : null}
             <Link href={productHref} className="link-arrow">
               See the current Zivoo design
             </Link>
           </div>
-          <AssetPlaceholder ratio="3 / 2" label="Team photograph" />
+          <AssetPlaceholder ratio="3 / 2" label="Founder photograph" />
         </div>
       </section>
 
@@ -92,6 +107,7 @@ export default function AboutPage() {
             url: absoluteUrl("/about"),
             name: "About Zivoo",
             about: { "@id": ORG_ID },
+            mainEntity: { "@id": FOUNDER_ID },
             inLanguage: "en-GB",
           },
         )}

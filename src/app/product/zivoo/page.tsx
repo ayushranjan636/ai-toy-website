@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ProductGallery, type GalleryItem } from "@/components/ProductGallery";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { absoluteUrl, breadcrumbLd, ldGraph, ORG_ID, pageMetadata, PRODUCT_ID } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { inr, product, site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Zivoo talking learning toy: design, activities and status",
@@ -75,8 +75,9 @@ const gallery: GalleryItem[] = [
 ];
 
 /**
- * Product structured data. No price, offer or rating is published because
- * none exists yet. We'll add `offers` (PreOrder) once pre-orders open.
+ * Product structured data. The offer reflects the founder-confirmed planned
+ * pre-order price and opening date (lib/site.ts). No rating or review is
+ * published because none exists yet.
  */
 const productLd = {
   "@type": "Product",
@@ -88,12 +89,34 @@ const productLd = {
   manufacturer: { "@id": ORG_ID },
   image: gallery.filter((g) => g.kind === "image").map((g) => absoluteUrl(g.src)),
   url: absoluteUrl("/product/zivoo"),
-  audience: { "@type": "PeopleAudience", audienceType: "Children and their parents" },
+  audience: {
+    "@type": "PeopleAudience",
+    audienceType: "Children and their parents",
+    suggestedMinAge: product.ages.min,
+    suggestedMaxAge: product.ages.max,
+  },
+  offers: {
+    "@type": "Offer",
+    url: absoluteUrl("/product/zivoo"),
+    price: product.preorder.price,
+    priceCurrency: product.preorder.currency,
+    availability: "https://schema.org/PreOrder",
+    availabilityStarts: product.preorder.opensOn,
+    priceValidUntil: product.preorder.validUntil,
+    eligibleRegion: { "@type": "Country", name: "India" },
+    areaServed: { "@type": "Country", name: "India" },
+    itemCondition: "https://schema.org/NewCondition",
+    seller: { "@id": ORG_ID },
+  },
   additionalProperty: [
     { "@type": "PropertyValue", name: "Screen", value: "None (screen-free, voice-based)" },
     { "@type": "PropertyValue", name: "Connectivity", value: "Requires home Wi-Fi" },
     { "@type": "PropertyValue", name: "Planned activities", value: "Word practice, spelling, basic maths, storytelling, story reflection" },
-    { "@type": "PropertyValue", name: "Parent app", value: "Planned companion app for setup, activity choice and progress" },
+    { "@type": "PropertyValue", name: "Age range", value: `${product.ages.label} years` },
+    { "@type": "PropertyValue", name: "Languages", value: product.languages },
+    { "@type": "PropertyValue", name: "Wake word", value: product.wakeWord },
+    { "@type": "PropertyValue", name: "Battery", value: product.battery },
+    { "@type": "PropertyValue", name: "Parent app", value: `${product.app}: setup, activity choice, growth and progress` },
     { "@type": "PropertyValue", name: "Status", value: "In development" },
   ],
   subjectOf: {
@@ -125,7 +148,29 @@ export default function ProductPage() {
               maths and stories.
             </p>
 
+            <p className="product-price">
+              <strong>{inr(product.preorder.price)}</strong> <s>{inr(product.preorder.listPrice)}</s>{" "}
+              <span>Planned pre-order price, 50% off until {product.preorder.validUntilLabel}. Pre-orders open{" "}
+                {product.preorder.opensLabel}, in India only.</span>
+            </p>
+
             <dl className="spec-list">
+              <div>
+                <dt>Age</dt>
+                <dd>Designed for children aged {product.ages.label}</dd>
+              </div>
+              <div>
+                <dt>Languages</dt>
+                <dd>{product.languages}</dd>
+              </div>
+              <div>
+                <dt>Wake word</dt>
+                <dd>&ldquo;{product.wakeWord}&rdquo;, once Zivoo is switched on</dd>
+              </div>
+              <div>
+                <dt>Battery</dt>
+                <dd>{product.battery}</dd>
+              </div>
               <div>
                 <dt>Planned activities</dt>
                 <dd>Word practice, spelling, basic maths, storytelling, story reflection</dd>
@@ -136,11 +181,11 @@ export default function ProductPage() {
               </div>
               <div>
                 <dt>Parent app</dt>
-                <dd>Companion app concept for setup, activity choice and progress</dd>
+                <dd>{product.app} (concept): setup, activity choice, your child&rsquo;s growth and progress</dd>
               </div>
               <div>
                 <dt>Status</dt>
-                <dd>In development. Design and features may change.</dd>
+                <dd>Being built and tested. Design and features may change; no safety certifications yet.</dd>
               </div>
             </dl>
 

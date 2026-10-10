@@ -68,10 +68,14 @@ test("titles and descriptions are unique across pages", async () => {
   }
 });
 
-test("Product JSON-LD has no invented offers, prices or ratings", async () => {
+test("Product JSON-LD has the confirmed India pre-order offer and no invented ratings", async () => {
   const { body } = await get("/product/zivoo");
-  assert.doesNotMatch(body, /"(offers|price|aggregateRating|review)"/);
   assert.match(body, /"@type":"Product"/);
+  assert.match(body, /"price":4999,"priceCurrency":"INR"/);
+  assert.match(body, /"availability":"https:\/\/schema.org\/PreOrder"/);
+  assert.match(body, /"priceValidUntil":"2026-12-31"/);
+  assert.match(body, /"suggestedMinAge":3,"suggestedMaxAge":9/);
+  assert.doesNotMatch(body, /"(aggregateRating|review)"/);
 });
 
 test("sitemap lists only canonical, successful URLs on the production origin", async () => {

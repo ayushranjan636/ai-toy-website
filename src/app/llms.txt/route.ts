@@ -21,17 +21,21 @@ export function GET() {
 
   const body = `# Zivoo
 
-> Zivoo is a screen-free, voice-based learning toy that children talk to. It is being designed to help children practise words (pronunciation and meaning), spelling, basic maths, storytelling and story reflection through spoken conversation. It has no screen, needs a home Wi-Fi connection to work, and comes with a planned companion app for parents. Zivoo is in development and not yet available to buy. Made by ${site.company}.
+> Zivoo is a screen-free, voice-based learning toy that children talk to. It is being designed to help children practise words (pronunciation and meaning), spelling, basic maths, storytelling and story reflection through spoken conversation. It is designed for children aged 3 to 9, has no screen, needs a home Wi-Fi connection to work, and comes with the planned Zivoo Parents app. Zivoo is being built and tested; pre-orders are planned to open on 1 December 2026 at ₹4,999 (50% off ₹9,999). Made by ${site.company} (LLPIN ACX-8838, Tirupati, Andhra Pradesh, India), founded by S. V. Bharathi, a teacher with more than 15 years of experience.
 
 ## Key facts
 
 - Product type: screen-free educational toy; talking / conversational learning toy for children
-- Interaction: entirely by voice. No screen, nothing to tap.
+- Age range: 3 to 9 years
+- Interaction: entirely by voice, started with the wake word "Hey Zivoo". No screen, nothing to tap.
+- Languages: English first; more Indian languages planned
+- Battery: designed for up to 50 hours on a full charge
 - Planned activities: word practice, spelling (letters asked for one at a time), basic maths (counting, adding, taking away), storytelling, story reflection
-- Parent app (planned): set up Zivoo, choose which activities are available, see what was practised
+- Parent app (planned, Zivoo Parents app): set up Zivoo, choose activities, follow the child's growth and performance
 - Connectivity: requires Wi-Fi; not designed to work offline
-- Status: in development. A free pre-order waitlist is open; joining is not an order or payment.
-- Privacy policy: not yet finalised; will be published on the website when ready
+- Status: being built and tested; no safety certifications yet. A free pre-order waitlist is open; joining is not an order or payment.
+- Pre-order: India only, planned to open 1 December 2026; planned price ₹4,999 (regular price ₹9,999) until 31 December 2026
+- Voice data: recordings are kept temporarily on the device only; the parent app shows insights, not recordings. Full privacy policy not yet published.
 - Speech recognition note: recognising a word is not the same as confirming correct pronunciation. Zivoo is a practice partner, not an assessment.
 
 ## Main pages
@@ -39,7 +43,7 @@ export function GET() {
 - [Home](${absoluteUrl("/")}): overview, short film, how it works, FAQ, waitlist
 - [Features](${absoluteUrl("/features")}): each planned learning activity in detail
 - [Product](${absoluteUrl("/product/zivoo")}): gallery, design details, product FAQ
-- [About](${absoluteUrl("/about")}): why learning through conversation
+- [About](${absoluteUrl("/about")}): why learning through conversation, and the founder
 - [Blog](${absoluteUrl("/blog")}): guides for parents on screen-free learning
 
 ## Frequently asked questions

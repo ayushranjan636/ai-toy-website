@@ -334,6 +334,7 @@ main:focus { outline: none; }
   font-size: 0.9375rem;
   color: #dbe7e1;
 }
+.footer-base .footer-legal { margin-top: 6px; font-size: 0.8125rem; color: #c3d3cc; }
 
 @media (min-width: 700px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }

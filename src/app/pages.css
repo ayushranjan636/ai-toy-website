@@ -97,6 +97,10 @@
 .product-summary { border-radius: var(--radius-l); padding: clamp(24px, 3.5vw, 36px); }
 .product-summary h1 { margin-bottom: 14px; font-size: clamp(2.6rem, 5vw, 3.6rem); }
 .product-desc { max-width: 40ch; }
+.product-price { margin: 18px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.product-price strong { font-family: var(--font-display); font-size: 1.75rem; line-height: 1; }
+.product-price s { color: var(--muted); }
+.product-price span { flex-basis: 100%; font-size: 0.875rem; color: var(--muted); }
 .spec-list { margin: 20px 0 24px; }
 .spec-list > div { display: grid; gap: 2px; padding: 12px 0; border-top: 1px solid var(--line); }
 .spec-list dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }

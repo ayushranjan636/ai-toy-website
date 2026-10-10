@@ -40,7 +40,7 @@ Sign-ups are then written to `data/waitlist.json`, which is git-ignored. This is
 Sign-ups are appended to a Google Sheet through a small Google Apps Script web app.
 The website's server calls it with a shared secret, so the sheet is never exposed to browsers.
 
-1. Create a Google Sheet (any name). Open **Extensions → Apps Script**.
+1. Open the Zivoo waitlist sheet (https://docs.google.com/spreadsheets/d/116oL1-BxNC2oL0AWUpu8COK8zYVe81Uh9PAZKF2DshI/edit) and choose **Extensions → Apps Script**. The script already targets this sheet by ID.
 2. Replace the default code with the contents of [`google-sheets/Code.gs`](google-sheets/Code.gs) and save.
 3. **Project Settings (gear icon) → Script Properties → Add property**
    - Property: `WAITLIST_SECRET`

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { posts } from "@/content/blog";
-import { primaryNav, productHref, site } from "@/lib/site";
+import { legal, primaryNav, productHref, site } from "@/lib/site";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -68,6 +68,9 @@ export function Footer() {
       <div className="container footer-base">
         <p>
           &copy; {year} {site.company}. Zivoo is in development; features and design may change.
+        </p>
+        <p className="footer-legal">
+          {legal.name} (LLPIN {legal.llpin}), {legal.addressLine}
         </p>
       </div>
     </footer>

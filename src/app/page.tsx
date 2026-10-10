@@ -8,7 +8,7 @@ import { PostCard } from "@/components/PostCard";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { posts } from "@/content/blog";
 import { faqLd, ldGraph, pageMetadata } from "@/lib/seo";
-import { productHref, site } from "@/lib/site";
+import { inr, product, productHref, site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Zivoo | Screen-free learning toy for children",
@@ -25,7 +25,7 @@ const homeFaqs: FaqItem[] = [
   },
   {
     q: "How is Zivoo different from a learning app on a tablet?",
-    a: "There's no screen. Children use their voice and their imagination instead of watching or tapping, and parents choose activities and see progress in a separate companion app.",
+    a: "There's no screen. Children use their voice and their imagination instead of watching or tapping, and parents choose activities and follow progress in the separate Zivoo Parents app.",
   },
   ...coreFaqs,
 ];
@@ -72,8 +72,9 @@ export default function HomePage() {
 
           <div className="hero-body">
             <p className="lede">
-              Zivoo is a screen-free learning toy that children talk to. It&rsquo;s being designed to help them practise
-              words, spelling, simple maths and stories through spoken conversation.
+              Zivoo is a screen-free learning toy for children aged {product.ages.label}. Kids say &ldquo;{product.wakeWord}&rdquo;
+              and practise words, spelling, simple maths and stories just by talking. Pre-orders are planned to open on{" "}
+              {product.preorder.opensLabel} at {inr(product.preorder.price)}.
             </p>
             <div className="actions">
               <a href="#waitlist" className="btn btn-primary">
@@ -140,7 +141,7 @@ export default function HomePage() {
             <li>
               <span className="step-num">01</span>
               <h3>A parent sets it up</h3>
-              <p>Connect Zivoo to home Wi-Fi and choose its activities in the companion app.</p>
+              <p>Connect Zivoo to home Wi-Fi and choose its activities in the Zivoo Parents app.</p>
             </li>
             <li>
               <span className="step-num">02</span>
@@ -191,10 +192,16 @@ export default function HomePage() {
           <div className="split-copy">
             <p className="eyebrow">For parents</p>
             <h2 id="parents-title">Designed with parents in mind</h2>
-            <p>The companion app is planned to let you choose which activities Zivoo offers, see what was practised, and adjust things as your child grows.</p>
+            <p>
+              The {product.app} is planned to let you choose which activities Zivoo offers and follow your child&rsquo;s
+              growth and performance over time.
+            </p>
+            <p>
+              Voice recordings stay on the Zivoo device, and only temporarily. The app shows you insights about what was
+              practised, not recordings.
+            </p>
             <p className="small-note">
-              Our privacy policy isn&rsquo;t finalised yet, so we&rsquo;re not making claims about data handling. It will
-              be published here when it&rsquo;s ready.
+              Our full privacy policy is still being written and will be published here when it&rsquo;s ready.
             </p>
           </div>
           <Photo

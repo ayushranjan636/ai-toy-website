@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ogImage, site } from "./site";
+import { ogImage, legal, site } from "./site";
 
 /**
  * SEO helpers. Every page builds metadata through `pageMetadata` so canonical
@@ -63,6 +63,19 @@ export function pageMetadata({
 export const ORG_ID = `${site.url}/#organization`;
 export const WEBSITE_ID = `${site.url}/#website`;
 export const PRODUCT_ID = `${site.url}/product/zivoo#product`;
+export const FOUNDER_ID = `${site.url}/about#founder`;
+
+/** Only founder-confirmed facts: name, role, teaching background. */
+export const founderLd = {
+  "@type": "Person",
+  "@id": FOUNDER_ID,
+  name: "S. V. Bharathi",
+  jobTitle: "Founder",
+  description: "Founder of Zivoo, with more than 15 years of experience in teaching.",
+  knowsAbout: ["Teaching", "Early childhood learning", "Language development"],
+  worksFor: { "@id": ORG_ID },
+  url: `${site.url}/about#founder`,
+};
 
 export const organizationLd = {
   "@type": "Organization",
@@ -71,6 +84,19 @@ export const organizationLd = {
   url: site.url,
   logo: { "@type": "ImageObject", url: `${site.url}/images/zivoo-logo-dark.png` },
   brand: { "@type": "Brand", name: "Zivoo" },
+  founder: { "@id": FOUNDER_ID },
+  legalName: "COGNIVEDA LLP",
+  foundingDate: legal.incorporated,
+  identifier: { "@type": "PropertyValue", propertyID: "LLPIN", value: legal.llpin },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: legal.address.street,
+    addressLocality: legal.address.locality,
+    addressRegion: legal.address.region,
+    postalCode: legal.address.postalCode,
+    addressCountry: legal.address.country,
+  },
+  areaServed: { "@type": "Country", name: "India" },
   ...(site.contactEmail ? { email: site.contactEmail } : {}),
 };
 

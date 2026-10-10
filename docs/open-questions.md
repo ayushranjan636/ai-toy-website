@@ -1,19 +1,27 @@
-# Open product questions (internal, do not publish)
+# Product facts (internal, do not publish this file)
 
-These facts are **not** confirmed in project content, so the website does not state them.
-Answer them, then the matching copy, FAQ or structured data can be added.
+Answers confirmed by the founder on 10 Oct 2026. The single source of truth in code is
+`product` in `src/lib/site.ts`; pages, FAQ, llms.txt and JSON-LD all read from it.
 
-| # | Question | Why it matters | Where it would go |
-|---|----------|----------------|-------------------|
-| 1 | What age range is Zivoo designed for? | Parents filter toys by age; search queries often include ages. Not stated anywhere, so all age targeting was removed. | Home lede, product specs, Product JSON-LD `audience.suggestedMinAge/MaxAge` |
-| 2 | Which languages and accents does Zivoo understand and speak? | Key purchase question, especially in India. | Product specs, FAQ |
-| 3 | When will pre-orders open, and in which countries? | Domain is `.in` but no market is confirmed. No India-wide availability claims are made. | Product page, FAQ, Product `offers` (only once real) |
-| 4 | Price (or price range) at pre-order? | Required for Product rich results. Never published until set. | Product `offers` |
-| 5 | Is voice audio stored? Where, for how long, and can parents delete it? | Top parent concern for talking toys. Privacy policy isn't finalised. | Privacy policy, FAQ |
-| 6 | What parental controls will the app have (time limits, activity choice, history)? | "Choose activities" and "see what was practised" are stated as planned; nothing else. | Features, FAQ |
-| 7 | How is listening started (button press, wake word)? | Privacy and usability. The rear view shows a microphone switch; its function isn't documented. | Product specs, FAQ |
-| 8 | Battery or mains power? Battery life? | Common spec question. | Product specs |
-| 9 | Safety testing / certifications planned (e.g. BIS, EN 71, ASTM F963)? | Only publish once actually obtained. | Product specs |
-| 10 | Founder / team names and backgrounds that can be public? | About page has a placeholder; builds trust and entity clarity. | About page, Organization `founder` |
-| 11 | Official social profiles, contact email, registered address? | Needed for Organization `sameAs`, contact and any business profile. None are invented. | Footer, Organization JSON-LD |
-| 12 | Which services send email from @zivootoy.in? | Needed before any SPF/DKIM/DMARC records can be written. | DNS (owner) |
+| # | Question | Answer | Now used in |
+|---|----------|--------|-------------|
+| 1 | Age range | 3 to 9 years | Home lede, product specs, FAQ, About, Product `audience.suggestedMinAge/MaxAge`, meta description |
+| 2 | Languages | English first; expanding to Indian languages | Product specs, features, FAQ. Name each language only when it ships |
+| 3 | Pre-order date / market | Opens 1 December 2026 | Home lede, product price block, FAQ, Product `offers.availabilityStarts` |
+| 4 | Price | ₹4,999 introductory (50% off ₹9,999) | Product price block, FAQ, Product `offers` (PreOrder, INR) |
+| 5 | Voice storage | Temporary, on the device only; app shows analysis, not audio | Home parents section, features, FAQ |
+| 6 | Parent app | Zivoo Parents app: growth, performance, activity choice | Home, features, product specs, FAQ |
+| 7 | Listening trigger | Wake word "Hey Zivoo" once switched on | Product specs, features, FAQ |
+| 8 | Battery | Up to 50 hours per full charge (design target) | Product specs, features, FAQ |
+| 9 | Safety certification | None yet: building and testing phase | Product status, FAQ ("not yet") |
+| 10 | Founder | S. V. Bharathi, Founder, 15+ years teaching | About page, `Person` + Organization `founder` JSON-LD |
+| 12 | Market | India only | Product price block, FAQ, Offer `eligibleRegion` |
+| 13 | Offer end | ₹4,999 until 31 Dec 2026 | Product price block, FAQ, Offer `priceValidUntil` |
+| 14 | Company | COGNIVEDA LLP, LLPIN ACX-8838, inc. 4 May 2026, Flat No. 106, Garuda Tower, Lakshmipuram, Tirupati (Urban), Chittoor, AP 517501; RoC Vijayawada | Footer, Organization `legalName/address/identifier/foundingDate` |
+| 11 | Socials / contact | No socials yet; contact sistlavenkatabharathi@gmail.com | Footer/About email, Organization `email`. Add `sameAs` once socials launch |
+
+## Still open
+
+- **Privacy policy:** needs writing before 1 Dec (how long "temporary" is, how parents delete data, what the app stores). Set `NEXT_PUBLIC_PRIVACY_URL` once live.
+- **Founder details:** a photo, plus any specifics you're happy to make public (subjects/age groups taught, city, LinkedIn). They would replace the photo placeholder and strengthen the `Person` schema.
+- **Battery:** confirm 50 hours after testing; the site currently calls it a design target.

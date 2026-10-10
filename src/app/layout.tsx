@@ -6,7 +6,7 @@ import "./pages.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
-import { ldGraph, organizationLd, websiteLd } from "@/lib/seo";
+import { founderLd, ldGraph, organizationLd, websiteLd } from "@/lib/seo";
 import { ogImage, site } from "@/lib/site";
 
 const defaultTitle = "Zivoo | Screen-free learning toy for children";
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <JsonLd data={ldGraph(organizationLd, websiteLd)} />
+        <JsonLd data={ldGraph(organizationLd, founderLd, websiteLd)} />
       </body>
     </html>
   );
