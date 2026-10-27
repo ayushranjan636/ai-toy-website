@@ -49,6 +49,22 @@ export const productHref = "/product/zivoo";
 export const waitlistHref = "#waitlist";
 
 /**
+ * Parent app downloads shown on the unlisted /app page (the QR code in the box).
+ * /app/android always serves the latest APK (see next.config.ts), so printed QR codes
+ * and shared links never go stale. NEXT_PUBLIC_ANDROID_APP_URL can point it at
+ * Google Play once the app is listed there.
+ */
+export const appDownloads = {
+  android: {
+    href: clean(process.env.NEXT_PUBLIC_ANDROID_APP_URL) ?? "/app/android",
+    size: "about 52 MB",
+  },
+} as const;
+
+/** Where /app/android redirects: the latest signed APK (public, read-only S3 object). */
+export const ANDROID_APK_URL = "https://zivoo-app-downloads.s3.ap-south-1.amazonaws.com/android/Zivoo.apk";
+
+/**
  * Product facts confirmed by the founder (10 Oct 2026). Everything that
  * describes Zivoo on the site reads from here so pages and structured data
  * never disagree. Zivoo is still being built and tested, so these are design
