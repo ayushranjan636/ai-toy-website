@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
+import { ANDROID_APK_URL } from "./src/lib/site";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   turbopack: { root: __dirname },
+  async redirects() {
+    // Temporary (307) so the target can move to Google Play without browsers caching it.
+    return [{ source: "/app/android", destination: ANDROID_APK_URL, permanent: false }];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 90],
@@ -25,6 +30,9 @@ const nextConfig: NextConfig = {
       { source: "/images/:path*", headers: [longCache] },
       { source: "/video/:path*", headers: [longCache] },
       { source: "/og-image.jpg", headers: [longCache] },
+      // Unlisted owners' page (QR code in the box): never in search results.
+      { source: "/app/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      { source: "/app", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
     ];
   },
 };

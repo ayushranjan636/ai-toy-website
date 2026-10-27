@@ -222,3 +222,33 @@
 .post-toc a { display: block; padding: 7px 0 7px 16px; margin-left: -1px; border-left: 2px solid transparent; font-size: 0.925rem; line-height: 1.4; color: var(--muted); text-decoration: none; }
 .post-toc a:hover { color: var(--teal); border-left-color: var(--coral); }
 
+
+/* ------------------------------------------------------------------ /app (owners' welcome) */
+.welcome-hero .page-hero-inner { text-align: center; }
+.welcome-hero .eyebrow { justify-content: center; }
+.welcome-hero .lede { margin-inline: auto; }
+.welcome-cta { margin-top: 28px; }
+
+.welcome-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: 760px; }
+.welcome-steps li { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; padding: 22px 24px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-m); }
+.welcome-steps h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.welcome-steps p { color: var(--muted); max-width: 52ch; }
+.welcome-step-num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--teal); color: var(--cream); font-weight: 700; font-size: 1.05rem; }
+
+.download-grid { display: grid; gap: 20px; max-width: 760px; }
+@media (min-width: 720px) { .download-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.download-card { display: flex; flex-direction: column; gap: 10px; padding: 28px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); }
+.download-card.is-yours { border: 2px solid var(--teal); box-shadow: 0 12px 32px rgba(33, 78, 71, 0.12); }
+.download-card h3 { font-size: 1.35rem; margin: 0; }
+.download-card .btn { margin-top: 8px; }
+.download-card.is-soon .btn { cursor: default; opacity: 0.7; }
+.download-card.is-soon .btn:hover { background: transparent; }
+.download-os { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin: 0; }
+.download-note { color: var(--muted); margin: 0; }
+.download-help { margin-top: 6px; font-size: 0.95rem; }
+.download-help summary { cursor: pointer; color: var(--teal); font-weight: 650; }
+.download-help ol { margin: 10px 0 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--muted); }
+.download-help-text { font-size: 0.95rem; color: var(--muted); margin: 6px 0 0; }
+
+.welcome-help { max-width: 760px; }
+.welcome-help ul { padding-left: 1.2em; display: grid; gap: 10px; margin: 0 0 20px; }
