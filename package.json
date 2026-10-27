@@ -1,0 +1,27 @@
+{
+  "name": "zivoo-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marketing and pre-order waitlist website for Zivoo by Cogniveda LLP.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check:sheets": "node scripts/check-sheets.mjs",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "test": "node --test scripts/test-output.mjs"
+  },
+  "dependencies": {
+    "next": "^16.3.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}

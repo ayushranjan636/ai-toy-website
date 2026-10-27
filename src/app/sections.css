@@ -1,0 +1,220 @@
+/* =========================================================
+   Zivoo — shared sections (home and inner pages)
+   ========================================================= */
+
+.section-tint { background: linear-gradient(180deg, rgba(220, 235, 229, 0.55), rgba(220, 235, 229, 0.25)); }
+
+/* ---------- Hero ---------- */
+
+.hero { position: relative; overflow: hidden; padding-block: clamp(28px, 5vw, 72px) clamp(64px, 9vw, 120px); }
+
+.hero-grid { position: relative; display: grid; grid-template-areas: "head" "media" "body"; gap: 8px; }
+.hero-head { grid-area: head; }
+.hero-head .hero-h1 {
+  font-size: clamp(1.15rem, 1.9vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: 0;
+  font-weight: 600;
+  color: var(--teal-ink);
+  margin: 0 0 10px;
+}
+.hero-tagline {
+  font-family: var(--font-display);
+  color: var(--teal);
+  font-weight: 560;
+  font-size: clamp(2.5rem, 6.4vw, 4.1rem);
+  line-height: 1.03;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+  margin: 0;
+}
+.hero-media { grid-area: media; }
+.hero-body { grid-area: body; }
+
+.hero-image-frame {
+  /* Reserve the product image's exact proportions before it loads. */
+  aspect-ratio: 1165 / 1028;
+  width: 100%;
+  max-width: 420px;
+  margin: 16px auto 12px;
+  position: relative;
+}
+.hero-image-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 10% -3% 10%;
+  height: 10%;
+  background: radial-gradient(ellipse at center, rgba(33, 78, 71, 0.16), transparent 70%);
+  z-index: -1;
+}
+.hero-image { width: 100%; height: 100%; object-fit: contain; }
+.hero-note { margin-top: 18px; font-size: 0.9375rem; color: var(--muted); }
+
+@media (min-width: 600px) { .hero-image-frame { max-width: 480px; } }
+
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "head media" "body media";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(32px, 6vw, 96px);
+    align-items: end;
+  }
+  .hero-head { padding-top: 40px; }
+  .hero-body { align-self: start; padding-top: 24px; }
+  .hero-media { align-self: center; }
+  .hero-image-frame { max-width: 540px; margin: 0 0 0 auto; }
+}
+
+/* ---------- Split layout (text + photo) ---------- */
+
+.split { display: grid; gap: 36px; align-items: center; }
+.split-copy > p { max-width: 44ch; }
+.split-copy .link-arrow { display: inline-block; margin-top: 8px; }
+@media (min-width: 900px) {
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(48px, 7vw, 104px); }
+  .split-reverse { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+}
+@media (max-width: 899px) {
+  .split-reverse > .photo { order: 2; }
+}
+
+/* ---------- Photos ---------- */
+
+.photo { margin: 0; }
+.photo-frame { position: relative; width: 100%; border-radius: var(--radius-l); overflow: hidden; background: var(--cream-deep); }
+.photo-img { object-fit: cover; }
+.photo figcaption { margin-top: 12px; font-size: 0.9375rem; color: var(--muted); }
+.photo-wide { margin-bottom: 40px; }
+
+/* ---------- Steps ---------- */
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+.steps li { display: grid; gap: 4px; }
+.steps h3 { margin: 0; font-size: 1.25rem; }
+.steps p { color: var(--muted); max-width: 34ch; }
+.step-num { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); }
+@media (min-width: 800px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 40px; } }
+
+/* ---------- Activity list ---------- */
+
+.activity-list { margin: 8px 0 28px; }
+.activity-list > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.activity-list > div:first-child { border-top: 1px solid var(--line); }
+.activity-list dt { font-family: var(--font-display); font-size: 1.2rem; color: var(--teal); font-weight: 560; }
+.activity-list dd { margin: 2px 0 0; color: var(--muted); font-size: 1rem; }
+
+.small-note { font-size: 0.9375rem; color: var(--muted); }
+
+/* ---------- Spotlight ---------- */
+
+.spotlight {
+  position: relative;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+.spotlight-img { object-fit: cover; object-position: 70% 50%; }
+@media (max-width: 899px) {
+  /* Stack on small screens so the card never covers the toy. */
+  .spotlight { display: block; min-height: 0; padding: 0; background: rgba(220, 235, 229, 0.5); }
+  .spotlight-img { position: relative !important; height: auto !important; aspect-ratio: 3 / 2; }
+  .spotlight-card { max-width: none; border-radius: 0; border: 0; box-shadow: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+.spotlight-tag { top: auto; left: auto; right: 16px; top: 16px; }
+.spotlight-card { position: relative; border-radius: var(--radius-m); padding: 24px; max-width: 400px; }
+.spotlight-card h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.spotlight-card .btn { margin-top: 8px; }
+@media (min-width: 900px) {
+  .spotlight { aspect-ratio: 1536 / 1024; min-height: 0; align-items: center; padding: 48px; }
+  .spotlight-card { padding: 36px; }
+}
+
+/* ---------- FAQ ---------- */
+
+.faq-grid { display: grid; gap: 24px; }
+@media (min-width: 900px) { .faq-grid { grid-template-columns: 1fr 1.8fr; gap: 80px; } }
+
+.faq { border-top: 1px solid var(--line-strong); }
+.faq-item { border-bottom: 1px solid var(--line-strong); }
+.faq-item summary {
+  list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 20px 4px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-weight: 520;
+  color: var(--teal);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-icon { position: relative; flex: none; width: 14px; height: 14px; }
+.faq-icon::before, .faq-icon::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px;
+  background: var(--teal); border-radius: 2px;
+  transition: transform 0.2s var(--ease);
+}
+.faq-icon::after { transform: rotate(90deg); }
+.faq-item[open] .faq-icon::after { transform: rotate(0deg); }
+.faq-answer { padding: 0 4px 22px; max-width: 62ch; color: var(--charcoal); }
+
+/* ---------- Placeholders ---------- */
+
+.asset-placeholder {
+  width: 100%;
+  border-radius: var(--radius-l);
+  display: grid; place-items: center;
+  padding: 24px; text-align: center;
+  border: 1.5px dashed var(--line-strong);
+}
+.asset-placeholder-cream { background-color: var(--cream-deep); }
+.asset-placeholder-mint { background-color: var(--mint-soft); }
+.asset-placeholder-inner { display: grid; gap: 6px; justify-items: center; max-width: 26ch; }
+.asset-placeholder-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.asset-placeholder-label { font-family: var(--font-display); font-size: 1.1rem; color: var(--teal); line-height: 1.3; }
+.asset-placeholder-note { font-size: 0.875rem; color: var(--muted); }
+
+/* ---------- Concept film ---------- */
+
+.section-film { padding-top: clamp(24px, 4vw, 48px); }
+.film { margin: 0; }
+.film-frame {
+  position: relative;
+  aspect-ratio: 16 / 9; /* reserved before anything loads */
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  background: var(--cream-deep);
+}
+.film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.film-start {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: 0; border: 0; margin: 0;
+  background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.film-start:focus-visible { outline-offset: -6px; outline-color: var(--cream); }
+.film-poster { object-fit: cover; transition: transform 0.4s var(--ease); }
+.film-start:hover .film-poster { transform: scale(1.015); }
+.film-play {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 20px 12px 16px;
+  border-radius: 999px;
+  font: inherit; font-weight: 650; font-size: 1rem;
+  color: var(--teal-ink);
+}
+.film-play svg { color: var(--teal); }
+.film-duration { font-weight: 500; color: var(--muted); font-size: 0.9375rem; }
+.film-frame .glass-tag { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .film-start:hover .film-poster { transform: none; } }
+
+/* Home: Zivoo at a glance */
+.glance { margin: 0; display: grid; gap: 0 48px; }
+.glance > div { padding: 18px 0; border-top: 1px solid var(--line); }
+.glance dt { margin-bottom: 4px; font-weight: 700; }
+.glance dd { margin: 0; color: var(--muted); max-width: 52ch; }
+@media (min-width: 800px) { .glance { grid-template-columns: 1fr 1fr; } }
