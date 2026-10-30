@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { posts } from "@/content/blog";
+import { landings } from "@/content/landing";
 import { absoluteUrl } from "@/lib/seo";
+import { film } from "@/lib/site";
 
-const SITE_UPDATED = "2026-10-10";
+const SITE_UPDATED = "2026-10-29";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
@@ -13,22 +15,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
       images: [
-        absoluteUrl("/images/zivoo-front.webp"),
-        absoluteUrl("/images/zivoo-side.webp"),
-        absoluteUrl("/images/zivoo-back.webp"),
-        absoluteUrl("/images/zivoo-facing.webp"),
+        absoluteUrl("/images/zivoo-hero.webp"),
+        absoluteUrl("/images/zivoo-angle-front-left.webp"),
+        absoluteUrl("/images/zivoo-angle-back.webp"),
+        absoluteUrl("/images/zivoo-angle-left.webp"),
+        absoluteUrl("/images/zivoo-angle-top.webp"),
+        absoluteUrl("/images/zivoo-feature-hey-zivoo.webp"),
+        absoluteUrl("/images/zivoo-feature-privacy.webp"),
+        absoluteUrl("/images/zivoo-feature-size.webp"),
       ],
       videos: [
         {
-          title: "Meet Zivoo in 25 seconds",
-          description: "A short concept film introducing Zivoo, a screen-free learning toy children talk to.",
-          thumbnail_loc: absoluteUrl("/video/zivoo-film-poster.webp"),
-          content_loc: absoluteUrl("/video/zivoo-film-1080.mp4"),
-          duration: 25,
+          title: film.title,
+          description: film.description,
+          thumbnail_loc: absoluteUrl(film.poster),
+          content_loc: absoluteUrl(film.hd),
+          duration: film.seconds,
         },
       ],
     },
+    { url: absoluteUrl("/pre-order"), lastModified: SITE_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl("/features"), lastModified: SITE_UPDATED, changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/safety"), lastModified: SITE_UPDATED, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/about"), lastModified: SITE_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: absoluteUrl("/blog"), lastModified: posts[0]?.updated ?? posts[0]?.published, changeFrequency: "weekly", priority: 0.8 },
   ];
@@ -41,5 +49,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(p.image.src)],
   }));
 
-  return [...pages, ...articles];
+  const guides: MetadataRoute.Sitemap = landings.map((l) => ({
+    url: absoluteUrl(l.path),
+    lastModified: l.updated ?? l.published,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    images: [absoluteUrl(l.image.src)],
+  }));
+
+  return [...pages, ...guides, ...articles];
 }

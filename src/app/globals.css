@@ -340,7 +340,17 @@ main:focus { outline: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (min-width: 1000px) {
-  .footer-grid { grid-template-columns: 1.3fr 1fr 1.2fr 1fr; }
+  .footer-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1240px) {
+  .footer-grid { grid-template-columns: 1.3fr 1fr 1.2fr 1.2fr 1.2fr 1fr; }
+}
+
+/* Simple vertical list of arrow links (buying guides, comparisons). */
+.link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.link-list li { margin: 0; }
+@media (min-width: 800px) {
+  .link-list { grid-template-columns: 1fr 1fr; column-gap: 32px; }
 }
 
 /* ---------- Glass surfaces ---------- */

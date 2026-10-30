@@ -2,19 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
-const SOURCES = {
-  hd: "/video/zivoo-film-1080.mp4",
-  sd: "/video/zivoo-film-720.mp4",
-};
-const POSTER = "/video/zivoo-film-poster.webp";
+import { film } from "@/lib/site";
 
 /**
- * A 25-second concept film. Nothing downloads until the visitor presses play,
+ * The Zivoo launch film. Nothing downloads until the visitor presses play,
  * it never autoplays, and it uses the lighter 720p file on small screens or
  * when the browser asks to save data.
  */
-export function FilmPlayer({ title = "Zivoo concept film" }: { title?: string }) {
+export function FilmPlayer({ title = film.title }: { title?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [src, setSrc] = useState<string | null>(null);
 
@@ -31,7 +26,7 @@ export function FilmPlayer({ title = "Zivoo concept film" }: { title?: string })
   function start() {
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     const small = window.matchMedia("(max-width: 899px)").matches;
-    setSrc(small || conn?.saveData ? SOURCES.sd : SOURCES.hd);
+    setSrc(small || conn?.saveData ? film.sd : film.hd);
   }
 
   return (
@@ -42,7 +37,7 @@ export function FilmPlayer({ title = "Zivoo concept film" }: { title?: string })
             ref={videoRef}
             className="film-video"
             src={src}
-            poster={POSTER}
+            poster={film.poster}
             controls
             playsInline
             preload="auto"
@@ -50,18 +45,25 @@ export function FilmPlayer({ title = "Zivoo concept film" }: { title?: string })
           />
         ) : (
           <button type="button" className="film-start" onClick={start}>
-            <Image src={POSTER} alt="Still from the Zivoo concept film: the screen-free learning toy with its cream face panel and coral button." fill sizes="(min-width: 1248px) 1200px, 100vw" className="film-poster" loading="lazy" />
+            <Image
+              src={film.poster}
+              alt="Opening of the Zivoo launch film: the teal toy with its coral talk button, and the words “What if learning didn’t need a screen?”"
+              fill
+              sizes="(min-width: 1248px) 1200px, 100vw"
+              className="film-poster"
+              loading="lazy"
+            />
             <span className="film-play glass">
               <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true">
                 <path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor" />
               </svg>
               Play film
               <span className="visually-hidden">: {title}, </span>
-              <span className="film-duration">0:25</span>
+              <span className="film-duration">{film.label}</span>
             </span>
           </button>
         )}
-        <span className="glass-tag">Concept film</span>
+        <span className="glass-tag">Launch film</span>
       </div>
     </figure>
   );

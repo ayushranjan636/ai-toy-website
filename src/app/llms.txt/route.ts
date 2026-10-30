@@ -1,8 +1,9 @@
 import { coreFaqs } from "@/components/Faq";
 import { posts } from "@/content/blog";
 import { plain } from "@/content/blog/types";
+import { landings } from "@/content/landing";
 import { absoluteUrl } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { discountPct, film, humanDesign, inr, legal, product, site } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -12,52 +13,89 @@ export const dynamic = "force-static";
  * content as the pages so it never drifts out of date.
  */
 export function GET() {
+  const p = product.preorder;
   const faqs = coreFaqs
     .filter((f): f is { q: string; a: string } => typeof f.a === "string")
     .map((f) => `- **${f.q}** ${f.a}`)
     .join("\n");
 
-  const articles = posts.map((p) => `- [${p.title}](${absoluteUrl(`/blog/${p.slug}`)}): ${plain(p.answer)}`).join("\n");
+  const activities = product.activities.map((a) => `- **${a.name}:** ${a.detail}`).join("\n");
+  const guides = landings.map((l) => `- [${l.title}](${absoluteUrl(l.path)}): ${plain(l.answer)}`).join("\n");
+  const articles = posts.map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}): ${plain(post.answer)}`).join("\n");
 
   const body = `# Zivoo
 
-> Zivoo is a screen-free, voice-based learning toy that children talk to. It is being designed to help children practise words (pronunciation and meaning), spelling, basic maths, storytelling and story reflection through spoken conversation. It is designed for children aged 3 to 9, has no screen, needs a home Wi-Fi connection to work, and comes with the planned Zivoo Parents app. Zivoo is being built and tested; pre-orders are planned to open on 1 December 2026 at ₹4,999 (50% off ₹9,999). Made by ${site.company} (LLPIN ACX-8838, Tirupati, Andhra Pradesh, India), founded by S. V. Bharathi, a teacher with more than 15 years of experience.
+> Zivoo is a screen-free AI learning toy for children aged ${product.ages.label}, from ${site.company}, an Indian company in Tirupati, Andhra Pradesh. Children talk to it, with no screen, to hear and discuss stories, learn shlokas line by line, practise phonics, play an adaptive maths game, learn new words and spelling, and get child-friendly answers to their questions. Parents use the ${product.app} to set it up, start activities and follow progress. Pre-orders open in India on ${p.opensLabel} at an introductory price of ${inr(p.price)} (${discountPct}% off the regular ${inr(p.listPrice)}) until ${p.validUntilLabel}. Orders ship ${product.ships}.
 
 ## Key facts
 
-- Product type: screen-free educational toy; talking / conversational learning toy for children
-- Age range: 3 to 9 years
-- Interaction: entirely by voice, started with the wake word "Hey Zivoo". No screen, nothing to tap.
-- Languages: English first; more Indian languages planned
-- Battery: designed for up to 50 hours on a full charge
-- Planned activities: word practice, spelling (letters asked for one at a time), basic maths (counting, adding, taking away), storytelling, story reflection
-- Parent app (planned, Zivoo Parents app): set up Zivoo, choose activities, follow the child's growth and performance
-- Connectivity: requires Wi-Fi; not designed to work offline
-- Status: being built and tested; no safety certifications yet. A free pre-order waitlist is open; joining is not an order or payment.
-- Pre-order: India only, planned to open 1 December 2026; planned price ₹4,999 (regular price ₹9,999) until 31 December 2026
-- Voice data: recordings are kept temporarily on the device only; the parent app shows insights, not recordings. Full privacy policy not yet published.
-- Speech recognition note: recognising a word is not the same as confirming correct pronunciation. Zivoo is a practice partner, not an assessment.
+- Product: Zivoo, a screen-free AI talking learning toy (educational toy, voice-based, no display)
+- Brand: Zivoo. Maker: ${site.company} (LLPIN ${legal.llpin}), ${legal.addressLine}
+- Founder: S. V. Bharathi, a teacher with more than 15 years of teaching experience
+- Age range: ${product.ages.label} years
+- Interaction: entirely by voice, started with the wake word "${product.wakeWord}". No screen, nothing to tap.
+- Language: English. Shlokas are recited in Sanskrit and explained in English.
+- Battery: up to 50 hours on a full charge; ${product.charging}
+- Size: ${product.size}
+- Controls: ${product.controls}
+- Connectivity: ${product.wifi}; set up with the ${product.app} (Android)
+- Parent app: setup, one-tap activities (story, shloka, phonics, maths), volume and maximum-volume limit, progress over time
+- Voice recordings: not saved; the app shows what was practised, never recordings
+- Child safety: layered checks; grown-up topics, unkind words and requests for personal details get gentle fixed replies; personal details are removed before processing; every reply is checked before it is spoken; worrying disclosures get a calm "tell a grown-up you trust" response
+- Price: ${inr(p.price)} introductory pre-order price (regular price ${inr(p.listPrice)}), valid until ${p.validUntilLabel}
+- Pre-orders: open ${p.opensLabel}, India only. Waitlist: ${absoluteUrl("/pre-order")}
+- Website: ${site.url}
+
+## What children can do with Zivoo
+
+${activities}
+
+Note: ${product.phonicsNote}
+
+## How Zivoo's learning is designed
+
+${humanDesign.summary}
+
+${humanDesign.points.map((pt) => `- ${pt.title}: ${pt.detail}`).join("\n")}
+
+## Launch film
+
+- ${film.title} (${film.label}): ${absoluteUrl(film.hd)}
+
+## How Zivoo compares
+
+- **vs smart speakers (Amazon Alexa, Google Nest):** smart speakers are general-purpose assistants for adults. Zivoo is only for children aged 3 to 9, teaches through back-and-forth conversation and learning games that adapt to the child, filters every answer for children, and reports progress to parents.
+- **vs tablet learning apps:** Zivoo has no screen; children learn by talking, listening and imagining rather than watching and tapping.
+- **vs screen-free audio players (such as Toniebox or Yoto):** audio players play recorded stories and songs. Zivoo is conversational: it answers questions, asks questions back, runs maths, phonics and spelling practice, and teaches shlokas with repeat-after-me.
 
 ## Main pages
 
-- [Home](${absoluteUrl("/")}): overview, short film, how it works, FAQ, waitlist
-- [Features](${absoluteUrl("/features")}): each planned learning activity in detail
-- [Product](${absoluteUrl("/product/zivoo")}): gallery, design details, product FAQ
-- [About](${absoluteUrl("/about")}): why learning through conversation, and the founder
-- [Blog](${absoluteUrl("/blog")}): guides for parents on screen-free learning
+- [Home](${absoluteUrl("/")}): overview, film, how it works, FAQ, waitlist
+- [Zivoo product page](${absoluteUrl("/product/zivoo")}): price, photos, specifications, FAQ
+- [Features](${absoluteUrl("/features")}): each activity in detail (stories, shlokas, phonics, maths, words and spelling, curious questions)
+- [Pre-order](${absoluteUrl("/pre-order")}): dates, price, what happens when you join
+- [Safety and privacy](${absoluteUrl("/safety")}): how Zivoo protects children and their data
+- [About](${absoluteUrl("/about")}): the company and the founder
+- [Guides](${absoluteUrl("/blog")}): articles for parents on screen-free learning
+
+## Buying guides and comparisons
+
+${guides}
 
 ## Frequently asked questions
 
 ${faqs}
 
-## Guides for parents
+## Articles for parents
 
 ${articles}
 
 ## Optional
 
+- [Full text for AI assistants](${absoluteUrl("/llms-full.txt")})
 - [Sitemap](${absoluteUrl("/sitemap.xml")})
 - [RSS feed](${absoluteUrl("/feed.xml")})
+- Contact: ${site.contactEmail}
 `;
   return new Response(body, {
     headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },

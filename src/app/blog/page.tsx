@@ -1,11 +1,13 @@
 import { JsonLd } from "@/components/JsonLd";
 import { PostCard } from "@/components/PostCard";
+import Link from "next/link";
 import { posts } from "@/content/blog";
+import { landings } from "@/content/landing";
 import { absoluteUrl, breadcrumbLd, ldGraph, ORG_ID, pageMetadata, WEBSITE_ID } from "@/lib/seo";
 
-const title = "Screen-free learning guides for parents";
+const title = "Screen-free learning guides for parents in India";
 const description =
-  "Practical, evidence-informed guides for parents on screen time, screen-free activities, language development, spelling games and choosing educational toys.";
+  "Practical guides for parents on screen time, shlokas for kids, phonics at home, spelling games, vocabulary, screen-free gifts and choosing educational toys.";
 
 export const metadata = pageMetadata({ title, description, path: "/blog" });
 
@@ -35,6 +37,24 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
+      <section className="section section-tint" aria-labelledby="blog-guides-title">
+        <div className="container narrow">
+          <div className="section-head">
+            <p className="eyebrow">Choosing a learning toy?</p>
+            <h2 id="blog-guides-title">Buying guides and comparisons</h2>
+          </div>
+          <ul className="link-list">
+            {landings.map((l) => (
+              <li key={l.path}>
+                <Link href={l.path} className="link-arrow">
+                  {l.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <JsonLd
         data={ldGraph(
           {
@@ -43,7 +63,7 @@ export default function BlogIndexPage() {
             name: title,
             description,
             url: absoluteUrl("/blog"),
-            inLanguage: "en-GB",
+            inLanguage: "en-IN",
             isPartOf: { "@id": WEBSITE_ID },
             publisher: { "@id": ORG_ID },
             blogPost: posts.map((p) => ({

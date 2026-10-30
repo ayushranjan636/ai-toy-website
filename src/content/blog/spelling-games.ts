@@ -97,7 +97,7 @@ export const spellingGames: Post = {
       blocks: [
         {
           type: "p",
-          text: "Spoken spelling is one of the planned activities for [Zivoo](/features#maths-title), our screen-free learning toy in development. Zivoo is designed to ask a child to spell a word out loud, one letter at a time, without a screen. Some letters sound alike (like B and D), so we are designing spelling with that in mind. It's intended to complement the games above, not replace playing them together.",
+          text: "Spoken spelling and phonics are activities on [Zivoo](/features#words-title), our screen-free AI learning toy. A child can ask \"How do you spell elephant?\" or practise blending sounds into words, out loud and without a screen. It's meant to complement the games above, not replace playing them together.",
         },
       ],
     },

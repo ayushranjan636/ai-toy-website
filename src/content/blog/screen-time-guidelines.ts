@@ -100,7 +100,7 @@ export const screenTimeGuidelines: Post = {
       blocks: [
         {
           type: "p",
-          text: "Nothing replaces time with a parent or carer. A screen-free toy can, though, give children another way to practise talking, listening and thinking without a display. That's the idea behind [Zivoo](/product/zivoo), a voice-based learning toy we're developing for spoken practice of words, spelling, simple maths and stories. It has no screen, needs Wi-Fi to work, and is still in development.",
+          text: "Nothing replaces time with a parent or carer. A screen-free toy can, though, give children another way to practise talking, listening and thinking without a display. That's the idea behind [Zivoo](/product/zivoo), a screen-free AI learning toy for children aged 3 to 9. Children talk to it for stories, shlokas, phonics, maths, words and spelling, with no display at all.",
         },
       ],
     },

@@ -13,7 +13,18 @@ import { test, after, before } from "node:test";
 const ORIGIN = "https://www.zivootoy.in";
 const PORT = 3217;
 const base = `http://127.0.0.1:${PORT}`;
-const PAGES = ["/", "/features", "/about", "/product/zivoo", "/blog"];
+const PAGES = [
+  "/",
+  "/features",
+  "/about",
+  "/product/zivoo",
+  "/pre-order",
+  "/safety",
+  "/blog",
+  "/toys/ai-toy-for-kids",
+  "/toys/shloka-learning-toy",
+  "/compare/zivoo-vs-alexa-smart-speakers",
+];
 let server;
 
 before(async () => {
@@ -71,7 +82,8 @@ test("titles and descriptions are unique across pages", async () => {
 test("Product JSON-LD has the confirmed India pre-order offer and no invented ratings", async () => {
   const { body } = await get("/product/zivoo");
   assert.match(body, /"@type":"Product"/);
-  assert.match(body, /"price":4999,"priceCurrency":"INR"/);
+  assert.match(body, /"price":5999,"priceCurrency":"INR"/);
+  assert.match(body, /"availabilityStarts":"2026-11-23"/);
   assert.match(body, /"availability":"https:\/\/schema.org\/PreOrder"/);
   assert.match(body, /"priceValidUntil":"2026-12-31"/);
   assert.match(body, /"suggestedMinAge":3,"suggestedMaxAge":9/);
@@ -89,10 +101,34 @@ test("sitemap lists only canonical, successful URLs on the production origin", a
   }
 });
 
-test("robots.txt allows crawling, blocks only /api/, points to production sitemap", async () => {
+test("robots.txt allows crawling, blocks only /api/, names AI crawlers, points to production sitemap", async () => {
   const { body } = await get("/robots.txt");
+  for (const bot of ["GPTBot", "OAI-SearchBot", "PerplexityBot", "ClaudeBot", "Google-Extended"]) assert.match(body, new RegExp(`User-Agent: ${bot}`));
   assert.match(body, /User-Agent: \*\nAllow: \/\nDisallow: \/api\//);
   assert.match(body, /Sitemap: https:\/\/www\.zivootoy\.in\/sitemap\.xml/);
+});
+
+test("llms.txt and llms-full.txt carry the current launch facts", async () => {
+  const { status, body } = await get("/llms.txt");
+  assert.equal(status, 200);
+  for (const fact of ["23 November 2026", "₹5,999", "₹9,999", "Shlokas", "Phonics", "3 to 9"]) assert.ok(body.includes(fact), fact);
+  assert.doesNotMatch(body, /in development|(?<!\d)1 December|₹4,999/i);
+  const full = await get("/llms-full.txt");
+  assert.equal(full.status, 200);
+  assert.match(full.body, /Zivoo vs Alexa/);
+});
+
+test("no stale launch facts on any page", async () => {
+  for (const p of PAGES) {
+    const { body } = await get(p);
+    assert.doesNotMatch(body, /(?<!\d)1 December 2026|₹4,999|In development/, p);
+  }
+});
+
+test("IndexNow key file is served", async () => {
+  const { status, body } = await get("/c7947d57d56265d3e34e472839f16d74.txt");
+  assert.equal(status, 200);
+  assert.equal(body.trim(), "c7947d57d56265d3e34e472839f16d74");
 });
 
 test("unknown pages return 404 (not redirected to the homepage)", async () => {

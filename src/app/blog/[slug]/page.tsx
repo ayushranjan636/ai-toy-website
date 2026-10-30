@@ -5,9 +5,10 @@ import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { formatDate, PostCard } from "@/components/PostCard";
 import { RichText } from "@/components/RichText";
+import { BlockView } from "@/components/Blocks";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { getPost, posts, relatedPosts } from "@/content/blog";
-import { plain, readingMinutes, wordCount, type Block } from "@/content/blog/types";
+import { plain, readingMinutes, wordCount } from "@/content/blog/types";
 import { absoluteUrl, breadcrumbLd, faqLd, ldGraph, ORG_ID, pageMetadata, PRODUCT_ID, WEBSITE_ID } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -33,71 +34,6 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">) {
   });
 }
 
-function BlockView({ block }: { block: Block }) {
-  switch (block.type) {
-    case "p":
-      return (
-        <p>
-          <RichText text={block.text} />
-        </p>
-      );
-    case "ul":
-    case "ol": {
-      const List = block.type;
-      return (
-        <List>
-          {block.items.map((item) => (
-            <li key={item}>
-              <RichText text={item} />
-            </li>
-          ))}
-        </List>
-      );
-    }
-    case "callout":
-      return (
-        <aside className="post-callout">
-          <p className="post-callout-title">{block.title}</p>
-          <p>
-            <RichText text={block.text} />
-          </p>
-        </aside>
-      );
-    case "table":
-      return (
-        <div className="post-table-wrap" role="region" aria-label={block.caption ?? "Table"} tabIndex={0}>
-          <table className="post-table">
-            {block.caption ? <caption>{block.caption}</caption> : null}
-            <thead>
-              <tr>
-                {block.head.map((h) => (
-                  <th key={h} scope="col">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {block.rows.map((row) => (
-                <tr key={row.join("|")}>
-                  {row.map((cell, i) =>
-                    i === 0 ? (
-                      <th key={i} scope="row">
-                        {cell}
-                      </th>
-                    ) : (
-                      <td key={i}>{cell}</td>
-                    ),
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-  }
-}
-
 export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const post = getPost(slug);
@@ -116,7 +52,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     image: absoluteUrl(post.image.src),
     datePublished: post.published,
     dateModified: post.updated ?? post.published,
-    inLanguage: "en-GB",
+    inLanguage: "en-IN",
     articleSection: post.category,
     keywords: post.keywords.join(", "),
     wordCount: wordCount(post),
@@ -186,7 +122,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   loading="eager"
                   fetchPriority="high"
                 />
-                <span className="glass-tag">Concept image</span>
+                <span className="glass-tag">Illustration</span>
               </div>
             </figure>
 

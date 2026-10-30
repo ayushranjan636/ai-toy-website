@@ -13,3 +13,10 @@ next-env.d.ts
 # local audit artefacts
 .shots/
 !.env.example
+
+# Raw media sources: processed into public/images and public/video by
+# scripts/process-media.mjs. Kept local so they are never deployed.
+/public/angles/
+/public/angles_transparent/
+/public/features/
+/public/video/Zivoo_Launch_Film_1080p.mp4
