@@ -1,58 +1,102 @@
 import Link from "next/link";
 import { coreFaqs, Faq } from "@/components/Faq";
+import { FeatureCards } from "@/components/FeatureCards";
 import { FilmPlayer } from "@/components/FilmPlayer";
+import { HumanDesigned } from "@/components/HumanDesigned";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductGallery, type GalleryItem } from "@/components/ProductGallery";
 import { WaitlistSection } from "@/components/WaitlistSection";
-import { absoluteUrl, breadcrumbLd, ldGraph, ORG_ID, pageMetadata, PRODUCT_ID } from "@/lib/seo";
-import { inr, product, site } from "@/lib/site";
+import { breadcrumbLd, ldGraph, pageMetadata, productLd } from "@/lib/seo";
+import { discountPct, inr, product } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Zivoo talking learning toy: design, activities and status",
+  title: "Zivoo AI Talking Learning Toy for Kids 3-9: ₹5,999 Pre-order",
   absoluteTitle: true,
   description:
-    "See Zivoo, a screen-free talking learning toy in development: its design from every angle, planned word, spelling, maths and story activities, and parent app.",
+    "Zivoo, the screen-free AI talking toy for kids aged 3-9: stories, shlokas, phonics, maths and spelling by voice. ₹5,999 (MRP ₹9,999). Pre-orders open 23 Nov 2026.",
   path: "/product/zivoo",
 });
 
 const gallery: GalleryItem[] = [
   {
     kind: "image",
-    src: "/images/zivoo-front.webp",
-    width: 1165,
-    height: 1028,
+    src: "/images/zivoo-hero.webp",
+    width: 1200,
+    height: 1200,
     cutout: true,
     label: "Front",
-    alt: "Front of Zivoo: a rounded teal body with a cream face panel, two eyes and a small smile, a speaker grille on the lower left and a coral button on top.",
-    caption: "Front view of the concept design.",
+    alt: "Front of Zivoo: a rounded soft-teal body with a cream face panel, two dark eyes and a small smile, a speaker grille on the lower left and a coral talk button on top.",
+    caption: "Front view: the face panel, speaker grille and coral talk button.",
   },
   {
     kind: "image",
-    src: "/images/zivoo-back.webp",
-    width: 1157,
-    height: 1032,
+    src: "/images/zivoo-angle-front-left.webp",
+    width: 1200,
+    height: 1200,
     cutout: true,
-    label: "Rear",
-    alt: "Back of Zivoo: smooth teal shell with a coral button on top, a small switch beside a microphone symbol, and a large panel across the lower back.",
-    caption: "Rear view of the concept design.",
+    label: "Three-quarter",
+    alt: "Zivoo from the front left: the rounded teal body, cream face panel, speaker grille and coral talk button.",
+    caption: "Three-quarter view from the front left.",
   },
   {
     kind: "image",
-    src: "/images/zivoo-side.webp",
-    width: 1536,
-    height: 1024,
+    src: "/images/zivoo-angle-left.webp",
+    width: 1200,
+    height: 1200,
+    cutout: true,
     label: "Side",
-    alt: "Side of Zivoo: a rounded teal body with a round speaker grille, the edge of the cream face panel and the coral button on top.",
-    caption: "Side view of the concept design.",
+    alt: "Side of Zivoo: a tall rounded teal shape with a round speaker grille and the edge of the cream face panel.",
+    caption: "Side view, 9.4 cm deep.",
   },
   {
     kind: "image",
-    src: "/images/zivoo-facing.webp",
-    width: 1536,
-    height: 1024,
-    label: "Detail",
-    alt: "Close view of Zivoo's face panel, speaker grille and coral button against a plain cream background.",
-    caption: "Concept render showing the face panel, speaker grille and button.",
+    src: "/images/zivoo-angle-back.webp",
+    width: 1200,
+    height: 1200,
+    cutout: true,
+    label: "Back",
+    alt: "Back of Zivoo: smooth teal shell with the coral talk button on top, a physical microphone switch, a round back panel and a USB-C charging port near the base.",
+    caption: "Back view: the microphone switch and USB-C charging port.",
+  },
+  {
+    kind: "image",
+    src: "/images/zivoo-angle-top.webp",
+    width: 1200,
+    height: 1200,
+    cutout: true,
+    label: "Top",
+    alt: "Zivoo from above: the coral talk button and the small microphone hole on top of the rounded teal body.",
+    caption: "From above: the coral talk button and microphone.",
+  },
+  {
+    kind: "image",
+    src: "/images/zivoo-feature-hey-zivoo.webp",
+    width: 1600,
+    height: 1600,
+    cutout: true,
+    label: "Hey Zivoo",
+    alt: "Diagram of Zivoo: microphone on top, a glowing talk button that lights up while Zivoo listens, and a speaker with a warm, friendly voice.",
+    caption: "Say “Hey Zivoo” or press the glowing talk button.",
+  },
+  {
+    kind: "image",
+    src: "/images/zivoo-feature-privacy.webp",
+    width: 1600,
+    height: 1600,
+    cutout: true,
+    label: "Mic switch",
+    alt: "Back of Zivoo with a physical microphone switch: slide to mute, slide back to talk.",
+    caption: "A physical mic switch you can see: slide to mute.",
+  },
+  {
+    kind: "image",
+    src: "/images/zivoo-feature-size.webp",
+    width: 1600,
+    height: 1600,
+    cutout: true,
+    label: "Size",
+    alt: "Zivoo dimensions: 16 cm wide, 14 cm tall and 9.4 cm deep.",
+    caption: "16 × 14 × 9.4 cm: small enough to hug.",
   },
   {
     kind: "image",
@@ -61,76 +105,21 @@ const gallery: GalleryItem[] = [
     height: 1024,
     label: "At home",
     alt: "Zivoo on a wooden shelf beside a row of children's books.",
-    caption: "Concept render showing Zivoo at home beside books.",
+    caption: "Zivoo at home beside books.",
   },
   {
     kind: "image",
     src: "/images/packed-product.webp",
     width: 1536,
     height: 1024,
-    label: "Packaging",
-    alt: "Concept render of Zivoo packaging: a cream box with the Zivoo logo, and an open box showing the toy in a moulded tray beside a quick start guide.",
-    caption: "Packaging concept. Final packaging and box contents aren't confirmed.",
+    label: "In the box",
+    alt: "Zivoo packaging: a cream box with the Zivoo logo, and an open box showing the toy in a moulded tray beside a quick start guide.",
+    caption: "In the box: Zivoo and a quick start guide.",
   },
 ];
 
-/**
- * Product structured data. The offer reflects the founder-confirmed planned
- * pre-order price and opening date (lib/site.ts). No rating or review is
- * published because none exists yet.
- */
-const productLd = {
-  "@type": "Product",
-  "@id": PRODUCT_ID,
-  name: "Zivoo",
-  description: site.description,
-  category: "Toys & Games > Educational Toys",
-  brand: { "@type": "Brand", name: "Zivoo" },
-  manufacturer: { "@id": ORG_ID },
-  image: gallery.filter((g) => g.kind === "image").map((g) => absoluteUrl(g.src)),
-  url: absoluteUrl("/product/zivoo"),
-  audience: {
-    "@type": "PeopleAudience",
-    audienceType: "Children and their parents",
-    suggestedMinAge: product.ages.min,
-    suggestedMaxAge: product.ages.max,
-  },
-  offers: {
-    "@type": "Offer",
-    url: absoluteUrl("/product/zivoo"),
-    price: product.preorder.price,
-    priceCurrency: product.preorder.currency,
-    availability: "https://schema.org/PreOrder",
-    availabilityStarts: product.preorder.opensOn,
-    priceValidUntil: product.preorder.validUntil,
-    eligibleRegion: { "@type": "Country", name: "India" },
-    areaServed: { "@type": "Country", name: "India" },
-    itemCondition: "https://schema.org/NewCondition",
-    seller: { "@id": ORG_ID },
-  },
-  additionalProperty: [
-    { "@type": "PropertyValue", name: "Screen", value: "None (screen-free, voice-based)" },
-    { "@type": "PropertyValue", name: "Connectivity", value: "Requires home Wi-Fi" },
-    { "@type": "PropertyValue", name: "Planned activities", value: "Word practice, spelling, basic maths, storytelling, story reflection" },
-    { "@type": "PropertyValue", name: "Age range", value: `${product.ages.label} years` },
-    { "@type": "PropertyValue", name: "Languages", value: product.languages },
-    { "@type": "PropertyValue", name: "Wake word", value: product.wakeWord },
-    { "@type": "PropertyValue", name: "Battery", value: product.battery },
-    { "@type": "PropertyValue", name: "Parent app", value: `${product.app}: setup, activity choice, growth and progress` },
-    { "@type": "PropertyValue", name: "Status", value: "In development" },
-  ],
-  subjectOf: {
-    "@type": "VideoObject",
-    name: "Meet Zivoo in 25 seconds",
-    description: "A short concept film introducing Zivoo, a screen-free learning toy children talk to.",
-    thumbnailUrl: absoluteUrl("/video/zivoo-film-poster.webp"),
-    contentUrl: absoluteUrl("/video/zivoo-film-1080.mp4"),
-    uploadDate: "2026-09-28",
-    duration: "PT25S",
-  },
-};
-
 export default function ProductPage() {
+  const p = product.preorder;
   return (
     <>
       <section className="product-hero" aria-labelledby="product-title">
@@ -140,69 +129,124 @@ export default function ProductPage() {
 
           <div className="product-summary glass">
             <p className="glass-chip">
-              <span className="status-dot" aria-hidden="true" /> In development
+              <span className="status-dot" aria-hidden="true" /> Pre-orders open {p.opensLabel}
             </p>
-            <h1 id="product-title">Zivoo</h1>
+            <h1 id="product-title">Zivoo: screen-free AI learning toy</h1>
             <p className="product-desc">
-              A screen-free learning toy that children talk to, being designed for practising words, spelling, simple
-              maths and stories.
+              A talking learning toy for children aged {product.ages.label}. No screen: children learn stories,
+              shlokas, phonics, maths, words and spelling just by talking.
             </p>
 
             <p className="product-price">
-              <strong>{inr(product.preorder.price)}</strong> <s>{inr(product.preorder.listPrice)}</s>{" "}
-              <span>Planned pre-order price, 50% off until {product.preorder.validUntilLabel}. Pre-orders open{" "}
-                {product.preorder.opensLabel}, in India only.</span>
+              <strong>{inr(p.price)}</strong> <s>{inr(p.listPrice)}</s>{" "}
+              <span>
+                Introductory pre-order price, {discountPct}% off until {p.validUntilLabel}. Pre-orders open{" "}
+                {p.opensLabel} in India; orders ship {product.ships}.
+              </span>
             </p>
 
             <dl className="spec-list">
               <div>
                 <dt>Age</dt>
-                <dd>Designed for children aged {product.ages.label}</dd>
+                <dd>Children aged {product.ages.label}</dd>
               </div>
               <div>
-                <dt>Languages</dt>
-                <dd>{product.languages}</dd>
+                <dt>Activities</dt>
+                <dd>Stories, shlokas, phonics, maths game, words and spelling, curious questions, riddles and rhymes</dd>
+              </div>
+              <div>
+                <dt>Screen</dt>
+                <dd>None. Entirely voice-based</dd>
+              </div>
+              <div>
+                <dt>Language</dt>
+                <dd>English (shlokas recited in Sanskrit, explained in English)</dd>
               </div>
               <div>
                 <dt>Wake word</dt>
-                <dd>&ldquo;{product.wakeWord}&rdquo;, once Zivoo is switched on</dd>
+                <dd>&ldquo;{product.wakeWord}&rdquo;</dd>
               </div>
               <div>
                 <dt>Battery</dt>
                 <dd>{product.battery}</dd>
               </div>
               <div>
-                <dt>Planned activities</dt>
-                <dd>Word practice, spelling, basic maths, storytelling, story reflection</dd>
+                <dt>Charging</dt>
+                <dd>{product.charging}</dd>
+              </div>
+              <div>
+                <dt>Size</dt>
+                <dd>{product.size}</dd>
+              </div>
+              <div>
+                <dt>Controls</dt>
+                <dd>{product.controls}</dd>
               </div>
               <div>
                 <dt>Connection</dt>
-                <dd>Requires home Wi-Fi</dd>
+                <dd>{product.wifi}</dd>
               </div>
               <div>
                 <dt>Parent app</dt>
-                <dd>{product.app} (concept): setup, activity choice, your child&rsquo;s growth and progress</dd>
+                <dd>{product.app}: setup, one-tap activities, volume limit and progress</dd>
               </div>
               <div>
-                <dt>Status</dt>
-                <dd>Being built and tested. Design and features may change; no safety certifications yet.</dd>
+                <dt>Voice recordings</dt>
+                <dd>Not saved. Every answer passes child-safety checks</dd>
+              </div>
+              <div>
+                <dt>Learning design</dt>
+                <dd>Every activity chosen and designed by people, led by a teacher with 15+ years in the classroom</dd>
               </div>
             </dl>
 
             <a href="#waitlist" className="btn btn-primary btn-block">
               Join the pre-order waitlist
             </a>
-            <p className="form-note product-note">No payment required. We&rsquo;ll email you when pre-orders open.</p>
+            <p className="form-note product-note">
+              Free to join. We&rsquo;ll email you the moment pre-orders open on {p.opensLabel}.
+            </p>
             <p className="small-note">
-              <Link href="/features">How each activity is designed to work</Link>
+              <Link href="/features">What each activity does</Link> · <Link href="/pre-order">Pre-order details</Link>{" "}
+              · <Link href="/safety">Safety and privacy</Link>
             </p>
           </div>
         </div>
       </section>
 
+      <section className="section" aria-labelledby="pact-title">
+        <div className="container">
+          <div className="section-head">
+            <p className="eyebrow">What&rsquo;s inside</p>
+            <h2 id="pact-title">Everything your child can do with Zivoo</h2>
+          </div>
+          <dl className="glance">
+            {product.activities.map((a) => (
+              <div key={a.name}>
+                <dt>{a.name}</dt>
+                <dd>{a.detail}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="small-note">{product.phonicsNote}</p>
+        </div>
+      </section>
+
+      <HumanDesigned id="product-human-title" tint />
+
+      <section className="section" aria-labelledby="details-title">
+        <div className="container">
+          <div className="section-head">
+            <p className="eyebrow">The details</p>
+            <h2 id="details-title">Simple on the outside, thoughtful on the inside.</h2>
+          </div>
+          <FeatureCards keys={["meet", "hey", "practice", "privacy", "battery", "size"]} />
+        </div>
+      </section>
+
       <section className="section section-film" aria-labelledby="pfilm-title">
         <div className="container">
-          <h2 id="pfilm-title" className="section-head">See it in a home</h2>
+          <h2 id="pfilm-title" className="section-head">Watch the Zivoo launch film</h2>
           <FilmPlayer />
         </div>
       </section>
@@ -211,7 +255,7 @@ export default function ProductPage() {
         <div className="container faq-grid">
           <div>
             <p className="eyebrow">Questions</p>
-            <h2 id="pfaq-title">Before you join</h2>
+            <h2 id="pfaq-title">Before you pre-order</h2>
           </div>
           <Faq items={coreFaqs} />
         </div>
@@ -221,7 +265,7 @@ export default function ProductPage() {
 
       <JsonLd
         data={ldGraph(
-          productLd,
+          productLd(gallery.flatMap((g) => (g.kind === "image" ? [g.src] : []))),
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Zivoo", path: "/product/zivoo" },

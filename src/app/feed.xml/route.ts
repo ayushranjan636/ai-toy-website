@@ -28,7 +28,7 @@ export function GET() {
     <link>${absoluteUrl("/blog")}</link>
     <atom:link href="${absoluteUrl("/feed.xml")}" rel="self" type="application/rss+xml" />
     <description>Practical guides on screen time, screen-free activities, language development and learning through conversation.</description>
-    <language>en-gb</language>
+    <language>en-in</language>
     <copyright>© ${new Date().getFullYear()} ${esc(site.company)}</copyright>
 ${items}
   </channel>

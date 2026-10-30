@@ -6,10 +6,10 @@ import "./pages.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
-import { founderLd, ldGraph, organizationLd, websiteLd } from "@/lib/seo";
+import { brandLd, founderLd, ldGraph, organizationLd, websiteLd } from "@/lib/seo";
 import { ogImage, site } from "@/lib/site";
 
-const defaultTitle = "Zivoo | Screen-free learning toy for children";
+const defaultTitle = "Zivoo | Screen-free AI learning toy for kids aged 3-9";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   creator: site.company,
   publisher: site.company,
   category: "Education",
+  keywords: [
+    "screen-free learning toy",
+    "AI toy for kids",
+    "talking learning toy",
+    "educational toy India",
+    "shloka learning toy",
+    "phonics toy",
+  ],
   alternates: {
     types: { "application/rss+xml": [{ url: "/feed.xml", title: "Zivoo: guides for parents" }] },
   },
@@ -35,7 +43,7 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: site.description,
     images: [ogImage],
-    locale: "en_GB",
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
@@ -62,7 +70,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB" data-scroll-behavior="smooth" className={`${fraunces.variable} ${figtree.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${fraunces.variable} ${figtree.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content
@@ -72,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <JsonLd data={ldGraph(organizationLd, founderLd, websiteLd)} />
+        <JsonLd data={ldGraph(organizationLd, brandLd, founderLd, websiteLd)} />
       </body>
     </html>
   );

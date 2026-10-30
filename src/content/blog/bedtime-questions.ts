@@ -134,7 +134,7 @@ export const bedtimeQuestions: Post = {
         {
           type: "callout",
           title: "Story reflection with Zivoo",
-          text: "Story time is one of the planned activities for [Zivoo](/features#stories-title). It's designed to tell or discuss a short story and then ask children what they think, in the spirit of these questions and without a screen.",
+          text: "Story time is one of the favourite activities on [Zivoo](/features#stories-title). It tells a short story, or makes one up on any topic, and then asks children what they think, in the spirit of these questions and without a screen.",
         },
       ],
     },

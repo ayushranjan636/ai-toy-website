@@ -33,7 +33,7 @@
 
 .hero-image-frame {
   /* Reserve the product image's exact proportions before it loads. */
-  aspect-ratio: 1165 / 1028;
+  aspect-ratio: 1 / 1;
   width: 100%;
   max-width: 420px;
   margin: 16px auto 12px;

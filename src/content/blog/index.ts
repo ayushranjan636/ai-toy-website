@@ -1,13 +1,19 @@
 import { bedtimeQuestions } from "./bedtime-questions";
 import { choosingToys } from "./choosing-toys";
 import { conversationVocabulary } from "./conversation-vocabulary";
+import { phonicsAtHome } from "./phonics-at-home";
+import { screenFreeGifts } from "./screen-free-gifts";
 import { screenFreeLearning } from "./screen-free-learning";
 import { screenTimeGuidelines } from "./screen-time-guidelines";
+import { shlokasForKids } from "./shlokas-for-kids";
 import { spellingGames } from "./spelling-games";
 import type { Post } from "./types";
 
 /** All published posts, newest first (stable order for equal dates). */
 export const posts: Post[] = [
+  shlokasForKids,
+  phonicsAtHome,
+  screenFreeGifts,
   screenFreeLearning,
   screenTimeGuidelines,
   conversationVocabulary,

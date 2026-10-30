@@ -59,4 +59,4 @@ export function parseWaitlistInput(
 }
 
 export const MARKETING_CONSENT_TEXT =
-  "Also send me occasional updates about Zivoo's development. I can unsubscribe at any time.";
+  "Also send me occasional updates about Zivoo. I can unsubscribe at any time.";

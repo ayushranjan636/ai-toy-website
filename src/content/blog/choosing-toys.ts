@@ -105,7 +105,7 @@ export const choosingToys: Post = {
       blocks: [
         {
           type: "p",
-          text: "Be cautious of toys promising to raise IQ, guarantee reading by a certain age or make a child \"ahead\". Children learn in many ways and at different speeds. Good companies describe what the toy does and is intended to help with, and make clear what's still in development.",
+          text: "Be cautious of toys promising to raise IQ, guarantee reading by a certain age or make a child \"ahead\". Children learn in many ways and at different speeds. Good companies describe what the toy does and is intended to help with, and are clear about its limits.",
         },
       ],
     },
@@ -127,7 +127,7 @@ export const choosingToys: Post = {
         {
           type: "callout",
           title: "How we're approaching this with Zivoo",
-          text: "[Zivoo](/product/zivoo) is a screen-free, voice-based learning toy in development. It needs Wi-Fi, and its parent app is planned to let you choose activities and see what was practised. Our privacy policy isn't final yet. It will be published on this site when it's ready, and we'd encourage you to read it with the questions above in mind.",
+          text: "[Zivoo](/product/zivoo) is a screen-free AI learning toy. It listens only after the wake word \"Hey Zivoo\", doesn't save recordings of your child's voice, checks every answer for children before speaking, and lets parents choose activities and see progress in the Zivoo Parents app. Read [how Zivoo keeps children safe](/safety) with the questions above in mind.",
         },
       ],
     },
